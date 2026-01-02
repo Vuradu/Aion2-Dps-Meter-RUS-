@@ -9,7 +9,7 @@ import org.pcap4j.packet.TcpPacket
 import org.pcap4j.util.ByteArrays
 import kotlin.system.exitProcess
 
-object PcapCapturer {
+class PcapCapturer {
 
     private val SERVER_IP = PropertyHandler.getProperty("server.ip")
     private val SERVER_PORT = PropertyHandler.getProperty("server.port")
@@ -30,12 +30,10 @@ object PcapCapturer {
         try {
             Pcaps.findAllDevs()
         } catch (e: PcapNativeException) {
-            println("Pcap 핸들러 초기화 실패 : 네트워크 기기 검색 실패")
+            println("${this::class.java.simpleName} : Pcap 핸들러 초기화 실패")
             exitProcess(2)
         }
     }
-
-    private val MAGIC_PACKET = byteArrayOf(0x06.toByte(),0x00.toByte(),0x36.toByte())
 
 
     fun printDevices() {
@@ -51,7 +49,7 @@ object PcapCapturer {
     fun pcapStart() {
         val filter = "src host $SERVER_IP and port $SERVER_PORT"
         PCAP_HANDLE.setFilter(filter, BpfProgram.BpfCompileMode.OPTIMIZE)
-        println("캡쳐시작 필터구문 : $filter")
+        println("${this::class.java.simpleName} : 캡쳐시작 필터구문 : $filter")
 
         val listener = PacketListener { packet ->
             if (packet.contains(TcpPacket::class.java)) {
