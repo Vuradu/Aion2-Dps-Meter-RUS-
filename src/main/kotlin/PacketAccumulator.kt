@@ -7,17 +7,17 @@ class PacketAccumulator {
     private val buffer = ByteArrayOutputStream()
 
     // 프로퍼티스로 옮길까? 우선도는 낮음
-    private val MAX_BUFFER_SIZE = 10 * 1024 * 1024
-    private val WARN_BUFFER_SIZE = 8 * 1024 * 1024
+    private val MAX_BUFFER_SIZE = 2 * 1024 * 1024
+    private val WARN_BUFFER_SIZE = 1024 * 1024
 
     @Synchronized
     fun append(data: ByteArray) {
         //뭔가 꼬였을때 한번 날려서 oom 회피하기, 추후 시간체크같은거 추가해서 용량조절이랑 발생 상황 체크 해주면 될듯?
         if (buffer.size() in (WARN_BUFFER_SIZE + 1)..<MAX_BUFFER_SIZE) {
-            println("${this::class.java.simpleName} : [경고] 버퍼 용량 제한 임박")
+            println("${this::class.java.simpleName} : [경고] $this 버퍼 용량 제한 임박")
         }
         if (buffer.size() > MAX_BUFFER_SIZE) {
-            println("${this::class.java.simpleName} : [에러] 버퍼 용량 제한 초과로 강제 초기화 진행")
+            println("${this::class.java.simpleName} : [에러] $this 버퍼 용량 제한 초과로 강제 초기화 진행")
             buffer.reset()
         }
         buffer.write(data)
