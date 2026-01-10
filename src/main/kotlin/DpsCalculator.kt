@@ -46,11 +46,11 @@ class DpsCalculator(private val dataStorage: DataStorage) {
             return dpsData
         }
         pdpMap[currentTarget]!!.forEach lastPdpLoop@{ pdp ->
-            val nickname = nicknameData[pdp.getActorId()] ?: return@lastPdpLoop
-            dpsData.map.merge(nickname, pdp.getDamage(), Int::plus)
+            val nickname = nicknameData[pdp.getActorId()] ?: nicknameData[dataStorage.getSummonData()[pdp.getActorId()]] ?: return@lastPdpLoop
+            dpsData.map.merge(nickname, pdp.getDamage().toDouble(), Double::plus)
         }
         dpsData.map.forEach { (name,damage) ->
-            dpsData.map[name] = (damage/(battleTime/1000L)).toInt()
+            dpsData.map[name] = damage/battleTime * 1000
         }
         return dpsData
     }

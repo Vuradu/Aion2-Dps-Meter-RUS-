@@ -49,4 +49,8 @@ class DataStorage {
     fun getNickname():ConcurrentHashMap<Int, String>{
         return nicknameStorage
     }
+
+    fun getSummonData(): HashMap<Int, Int> {
+        return summonStorage
+    }
 }
