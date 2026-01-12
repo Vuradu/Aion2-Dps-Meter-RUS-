@@ -18,7 +18,7 @@ class StreamProcessor(private val dataStorage: DataStorage) {
             return
         }
         if (packet.size <= 3) return
-        if (packetLengthInfo.value > packet.size){
+        if (packetLengthInfo.value > packet.size) {
             parseBrokenLengthPacket(packet)
             //길이헤더가 실제패킷보다 김 보통 여기 닉네임이 몰려있는듯?
             return
@@ -29,10 +29,10 @@ class StreamProcessor(private val dataStorage: DataStorage) {
         }
 
         try {
-            if (packet.copyOfRange(0, packetLengthInfo.value - 3).size != 3){
-            parsePerfectPacket(packet.copyOfRange(0, packetLengthInfo.value - 3))
-            //매직패킷이 빠져있는 패킷뭉치
-                }
+            if (packet.copyOfRange(0, packetLengthInfo.value - 3).size != 3) {
+                parsePerfectPacket(packet.copyOfRange(0, packetLengthInfo.value - 3))
+                //매직패킷이 빠져있는 패킷뭉치
+            }
 
             onPacketReceived(packet.copyOfRange(packetLengthInfo.value - 3, packet.size))
             //남은패킷 재처리
@@ -46,7 +46,7 @@ class StreamProcessor(private val dataStorage: DataStorage) {
 
     }
 
-    private fun parseBrokenLengthPacket(packet:ByteArray){
+    private fun parseBrokenLengthPacket(packet: ByteArray) {
         var originOffset = 0
         while (originOffset < packet.size) {
             val info = readVarInt(packet, originOffset)
@@ -69,6 +69,26 @@ class StreamProcessor(private val dataStorage: DataStorage) {
                         originOffset++
                         continue
                     }
+                }
+            }
+            if (packet.size > innerOffset + 3 && packet[innerOffset + 1] == 0x00.toByte()) {
+                val possibleNameLength = packet[innerOffset + 2].toInt() and 0xff
+                if (packet.size >= innerOffset + possibleNameLength + 3 && possibleNameLength.toInt() != 0) {
+                    val possibleNameBytes = packet.copyOfRange(innerOffset + 3, innerOffset + possibleNameLength + 3)
+                    if (hasPossibilityNickname(String(possibleNameBytes, Charsets.UTF_8))) {
+                        dataStorage.appendNickname(info.value, String(possibleNameBytes, Charsets.UTF_8))
+                        originOffset++
+                        continue
+                    }
+                }
+            }
+            val possibleNameLength: Int = packet[innerOffset].toInt() and 0xff
+            if (packet.size >= innerOffset + possibleNameLength + 1) {
+                val possibleNameBytes = packet.copyOfRange(innerOffset + 1, innerOffset + possibleNameLength + 1)
+                if (hasPossibilityNickname(String(possibleNameBytes, Charsets.UTF_8))) {
+                    dataStorage.appendNickname(info.value, String(possibleNameBytes, Charsets.UTF_8))
+                    originOffset++
+                    continue
                 }
             }
             originOffset++
@@ -124,7 +144,7 @@ class StreamProcessor(private val dataStorage: DataStorage) {
         return -1
     }
 
-    private fun parseSummonPacket(packet: ByteArray):Boolean {
+    private fun parseSummonPacket(packet: ByteArray): Boolean {
         var offset = 0
         val packetLengthInfo = readVarInt(packet)
         offset += packetLengthInfo.length
@@ -136,13 +156,13 @@ class StreamProcessor(private val dataStorage: DataStorage) {
 
         val summonInfo = readVarInt(packet, offset)
         offset += summonInfo.length + 28
-        if (packet.size > offset){
+        if (packet.size > offset) {
             val mobInfo = readVarInt(packet, offset)
             offset += mobInfo.length
-            if (packet.size > offset){
+            if (packet.size > offset) {
                 val mobInfo2 = readVarInt(packet, offset)
-                if (mobInfo.value == mobInfo2.value){
-                    dataStorage.appendMob(summonInfo.value,mobInfo.value)
+                if (mobInfo.value == mobInfo2.value) {
+                    dataStorage.appendMob(summonInfo.value, mobInfo.value)
                 }
             }
         }
@@ -159,7 +179,7 @@ class StreamProcessor(private val dataStorage: DataStorage) {
         if (offset + 2 > packet.size) return false
         val realActorId = parseUInt16le(packet, offset)
 
-        dataStorage.appendSummon(realActorId,summonInfo.value)
+        dataStorage.appendSummon(realActorId, summonInfo.value)
         return true
     }
 
@@ -167,7 +187,7 @@ class StreamProcessor(private val dataStorage: DataStorage) {
         return (packet[offset].toInt() and 0xff) or ((packet[offset + 1].toInt() and 0xff) shl 8)
     }
 
-    private fun parsingNickname(packet: ByteArray):Boolean {
+    private fun parsingNickname(packet: ByteArray): Boolean {
         var offset = 0
         val packetLengthInfo = readVarInt(packet)
         offset += packetLengthInfo.length
@@ -197,7 +217,7 @@ class StreamProcessor(private val dataStorage: DataStorage) {
         return true
     }
 
-    private fun parsingDamage(packet: ByteArray):Boolean {
+    private fun parsingDamage(packet: ByteArray): Boolean {
         if (packet[0] == 0x20.toByte()) return false
         var offset = 0
         val packetLengthInfo = readVarInt(packet)
@@ -310,7 +330,7 @@ class StreamProcessor(private val dataStorage: DataStorage) {
         while (true) {
             if (offset + count >= bytes.size) {
                 println("${this::class.java.simpleName} : [에러] 배열 범위 초과")
-                return VarIntOutput(-1,-1)
+                return VarIntOutput(-1, -1)
             }
 
             val byteVal = bytes[offset + count].toInt()
@@ -323,7 +343,7 @@ class StreamProcessor(private val dataStorage: DataStorage) {
             }
 
             shift += 7
-            if (shift >= 64) return VarIntOutput(-1,-1)
+            if (shift >= 64) return VarIntOutput(-1, -1)
         }
     }
 }
