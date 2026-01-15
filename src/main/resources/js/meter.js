@@ -21,6 +21,14 @@ const createMeterUI = ({ elList, dpsFormatter, getUserName, onClickUserRow }) =>
     const classIconEl = document.createElement("div");
     classIconEl.className = "classIcon";
 
+    const classIconImg = document.createElement("img");
+    classIconImg.className = "classIconImg";
+    classIconImg.style.visibility = "hidden";
+
+    classIconImg.draggable = false;
+
+    classIconEl.appendChild(classIconImg);
+
     const nameEl = document.createElement("div");
     nameEl.className = "name";
 
@@ -39,6 +47,9 @@ const createMeterUI = ({ elList, dpsFormatter, getUserName, onClickUserRow }) =>
       rowEl,
       nameEl,
       dpsEl,
+      classIconEl,
+      classIconImg,
+
       fillEl,
       currentRow: null,
       lastSeenAt: 0,
@@ -69,31 +80,6 @@ const createMeterUI = ({ elList, dpsFormatter, getUserName, onClickUserRow }) =>
     if (!user) return top6;
     if (top6.some((x) => x.isUser)) return top6;
     return [...top6, user];
-  };
-
-  const buildRowsFromJson = (jsonStr) => {
-    const userName = getUserName();
-    let obj;
-
-    try {
-      obj = JSON.parse(jsonStr);
-    } catch {
-      return [];
-    }
-
-    const rows = [];
-    for (const [name, value] of Object.entries(obj || {})) {
-      const dps = Math.trunc(Number(value));
-      if (!Number.isFinite(dps)) continue;
-
-      rows.push({
-        id: name,
-        name,
-        dps,
-        isUser: name === userName,
-      });
-    }
-    return rows;
   };
 
   const pruneCache = (keepIds) => {
@@ -143,6 +129,15 @@ const createMeterUI = ({ elList, dpsFormatter, getUserName, onClickUserRow }) =>
       view.rowEl.classList.toggle("isUser", !!row.isUser);
 
       view.nameEl.textContent = row.name ?? "";
+      if (row.job && !!row.job) {
+        const src = `./assets/${row.job}.png`;
+        view.classIconImg.src = src;
+        view.classIconImg.style.visibility = "visible";
+      } else {
+        view.classIconImg.style.visibility = "hidden";
+      }
+
+      // view.classIconEl.style.display = "";
 
       const dps = Number(row.dps) || 0;
       view.dpsEl.textContent = `${dpsFormatter.format(dps)}/초`;
@@ -164,12 +159,6 @@ const createMeterUI = ({ elList, dpsFormatter, getUserName, onClickUserRow }) =>
     pruneCache(nextVisibleIds);
   };
 
-  const updateFromJson = (jsonStr) => {
-    const rows = buildRowsFromJson(jsonStr);
-    rows.sort((a, b) => (Number(b?.dps) || 0) - (Number(a?.dps) || 0));
-    renderRows(getDisplayRows(rows));
-  };
-
   const updateFromRows = (rows) => {
     const arr = Array.isArray(rows) ? rows.slice() : [];
     arr.sort((a, b) => (Number(b?.dps) || 0) - (Number(a?.dps) || 0));
@@ -181,5 +170,5 @@ const createMeterUI = ({ elList, dpsFormatter, getUserName, onClickUserRow }) =>
     elList.replaceChildren();
     rowViewById.clear();
   };
-  return { updateFromJson, updateFromRows, onResetMeterUi };
+  return { updateFromRows, onResetMeterUi };
 };

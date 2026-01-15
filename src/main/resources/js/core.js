@@ -10,7 +10,6 @@ class DpsApp {
     this.USER_NAME = "승찬";
     this.lastJson = null;
     this.isCollapse = false;
-    this.lastEmptyRows = null;
 
     this.dpsFormatter = new Intl.NumberFormat("ko-KR");
 
@@ -72,10 +71,10 @@ class DpsApp {
       return;
     }
     this.lastJson = raw;
-
+   
     const { rows, targetName } = this.buildRowsFromPayload(raw);
 
-   //UI 초기화 안되는 버그 있어서 주석처리 
+    //UI 초기화 안되는 버그 있어서 주석처리
     // if (rows.length > 0) {
     //   this.lastNonEmptyRows = rows;
     // } else if (this.lastNonEmptyRows) {
@@ -99,7 +98,12 @@ class DpsApp {
     const rows = [];
 
     for (const [name, value] of Object.entries(mapObj || {})) {
-      const dps = Math.trunc(Number(value));
+      const isObj = value && typeof value === "object";
+
+      const job = isObj ? value.job ?? "" : "";
+      const dpsRaw = isObj ? value.dps : value;
+
+      const dps = Math.trunc(Number(dpsRaw));
       if (!Number.isFinite(dps)) {
         continue;
       }
@@ -107,6 +111,7 @@ class DpsApp {
       rows.push({
         id: name,
         name,
+        job,
         dps,
         isUser: name === this.USER_NAME,
       });
