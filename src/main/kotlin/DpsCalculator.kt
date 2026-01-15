@@ -26,7 +26,7 @@ class DpsCalculator(private val dataStorage: DataStorage) {
             3450
         )
 
-    private val SKILL_CODES: IntArray = intArrayOf(9952, 60832, 33872, 19216)
+    private val SKILL_CODES: IntArray = intArrayOf(9952, 60832, 33872, 19216,53136,36176,5648,16912).apply { sort() }
 
     private val targetInfoMap = hashMapOf<Int, TargetInfo>()
 
