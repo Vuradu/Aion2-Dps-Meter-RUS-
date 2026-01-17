@@ -25,7 +25,6 @@ class StreamAssembler(private val processor: StreamProcessor) {
                 val fullPacket = buffer.getRange(0, cutPoint)
 
                 if (fullPacket.isNotEmpty()) {
-                    logger.debug("패킷 블록: {}", fullPacket)
                     processor.onPacketReceived(fullPacket)
                 }
 

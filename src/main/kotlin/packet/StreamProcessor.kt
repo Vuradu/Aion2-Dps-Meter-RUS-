@@ -115,19 +115,11 @@ class StreamProcessor(private val dataStorage: DataStorage) {
     private fun parsePerfectPacket(packet: ByteArray) {
         if (packet.size < 3) return
         var flag = parsingDamage(packet)
-        if (flag) {
-            logger.info("데미지패킷 파싱 성공")
-            return
-        }
+        if (flag) return
         flag = parsingNickname(packet)
-        if (flag) {
-            logger.info("닉네임패킷 파싱 성공")
-            return
-        }
+        if (flag) return
         flag = parseSummonPacket(packet)
-        if (flag) {
-            logger.info("소환패킷 파싱 성공")
-        }
+        if (flag) return
 
     }
 
@@ -342,7 +334,7 @@ class StreamProcessor(private val dataStorage: DataStorage) {
 
         while (true) {
             if (offset + count >= bytes.size) {
-                logger.error("배열범위초과, 패킷 {} 오프셋 {} count {}")
+                logger.error("배열범위초과, 패킷 {} 오프셋 {} count {}",toHex(bytes),offset,count)
                 return VarIntOutput(-1, -1)
             }
 
@@ -357,7 +349,7 @@ class StreamProcessor(private val dataStorage: DataStorage) {
 
             shift += 7
             if (shift >= 64){
-                logger.error("가변정수 오버플로우, 패킷 {} 오프셋 {} shift {}")
+                logger.error("가변정수 오버플로우, 패킷 {} 오프셋 {} shift {}",toHex(bytes),offset,shift)
                 return VarIntOutput(-1, -1)
             }
         }

@@ -29,7 +29,7 @@ dependencies {
     implementation ("org.pcap4j:pcap4j-packetfactory-static:1.8.2")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
 
-    
+
     implementation("org.openjfx:javafx-base:21.0.5:win")
     implementation("org.openjfx:javafx-graphics:21.0.5:win")
     implementation("org.openjfx:javafx-controls:21.0.5:win")
@@ -39,8 +39,7 @@ dependencies {
 
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1")
-
-    implementation("org.apache.logging.log4j:log4j-slf4j-impl:3.0.0-beta2")
+    implementation("org.slf4j:slf4j-simple:1.7.26")
 
 
 
