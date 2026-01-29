@@ -938,18 +938,18 @@ class DpsCalculator(private val dataStorage: DataStorage) {
         for (offset in POSSIBLE_OFFSETS) {
             val possibleOrigin = skillCode - offset
             if (SKILL_CODES.binarySearch(possibleOrigin) >= 0) {
-                logger.debug("추론 성공한 원본 스킬코드 :{}", possibleOrigin)
+                logger.debug("Inferred original skill code: {}", possibleOrigin)
                 return possibleOrigin
             }
         }
-        logger.debug("스킬코드 추론 실패")
+        logger.debug("Failed to infer skill code")
         return null
     }
 
     fun resetDataStorage() {
         dataStorage.flushDamageStorage()
         targetInfoMap.clear()
-        logger.info("대상 데미지 누적 데이터 초기화 완료")
+        logger.info("Target damage accumulation reset")
     }
 
     fun analyzingData(uid: Int) {
@@ -957,21 +957,28 @@ class DpsCalculator(private val dataStorage: DataStorage) {
         dpsData.map.forEach { (_, pData) ->
             logger.debug("-----------------------------------------")
             logger.debug(
-                "닉네임: {} 직업: {} 총 딜량: {} 기여도: {}",
+                "Nickname: {} job: {} total damage: {} contribution: {}",
                 pData.nickname,
                 pData.job,
                 pData.amount,
                 pData.damageContribution
             )
             pData.analyzedData.forEach { (key, data) ->
-                logger.debug("스킬(코드): {} 스킬 총 피해량: {}", SKILL_MAP[key] ?: key, data.damageAmount)
                 logger.debug(
-                    "사용 횟수: {} Critical Hit 횟수: {} Critical Hit 비율:{}",
+                    "Skill (code): {} total damage: {}",
+                    SKILL_MAP[key] ?: key,
+                    data.damageAmount
+                )
+                logger.debug(
+                    "Uses: {} critical hits: {} critical hit rate: {}",
                     data.times,
                     data.critTimes,
                     data.critTimes / data.times * 100
                 )
-                logger.debug("스킬의 딜 지분: {}%", (data.damageAmount / pData.amount * 100).roundToInt())
+                logger.debug(
+                    "Skill damage share: {}%",
+                    (data.damageAmount / pData.amount * 100).roundToInt()
+                )
             }
             logger.debug("-----------------------------------------")
         }

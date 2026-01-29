@@ -56,7 +56,7 @@
 
       const latest = (await res.json()).tag_name;
       if (latest && n(latest) > n(current)) {
-        text.textContent = `신규 업데이트가 있습니다!\n\n현재 버전 : v.${current}\n최신 버전 : v.${latest}\n\n 업데이트를 먼저 진행해주세요.`;
+        text.textContent = `A new update is available!\n\nCurrent version: v.${current}\nLatest version: v.${latest}\n\nPlease update before continuing.`;
         modal.classList.add("isOpen");
       }
     }, START_DELAY);

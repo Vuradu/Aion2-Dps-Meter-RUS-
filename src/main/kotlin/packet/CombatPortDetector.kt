@@ -15,4 +15,12 @@ object CombatPortDetector {
     }
 
     fun currentPort(): Int? = lockedPort
+
+    @Synchronized
+    fun reset() {
+        if (lockedPort != null) {
+            logger.info("Combat port lock cleared")
+        }
+        lockedPort = null
+    }
 }
