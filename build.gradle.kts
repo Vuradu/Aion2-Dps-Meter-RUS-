@@ -1,24 +1,11 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
-
 plugins {
     kotlin("jvm")
     id("org.jetbrains.compose")
     id("org.jetbrains.kotlin.plugin.compose")
     id("org.jetbrains.kotlin.plugin.serialization") version "2.0.0"
 
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-    }
 }
 
 group = "com.tbread"
@@ -70,9 +57,9 @@ compose.desktop {
                 includeAllModules = true
             }
             targetFormats(TargetFormat.Msi)
-            packageName = "aion2meter4j"
-            packageVersion = "0.2.4"
-            copyright = "Copyright 2026 TK open public Licensed under MIT License"
+            packageName = "aion2meter-tw"
+            packageVersion = "0.1.1"
+            copyright = "Copyright 2026 Taengu Licensed under MIT License"
         }
 
 
