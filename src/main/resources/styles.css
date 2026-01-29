@@ -88,17 +88,56 @@
   }
 }
 .settingsPanel {
-  display: none;
-  flex-direction: column;
-  gap: 12px;
-  padding: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(8, 16, 32, 0.6);
+  position: absolute;
   color: var(--text-color);
+  display: none;
+  left: 358px;
+  top: 0;
+  width: 420px;
+  border: 1px solid var(--panel-border);
+  background: rgb(12, 22, 40);
+  padding: 12px 8px;
+  border-radius: var(--rounded-lg);
   text-shadow: var(--text-shadow);
+  z-index: 2;
 
   &.isOpen {
     display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .settingsHeader {
+    display: flex;
+    align-items: center;
+    color: var(--title);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0 16px 10px;
+
+    .settingsTitle {
+      font-weight: 700;
+    }
+
+    .closeX {
+      cursor: pointer;
+      margin-left: auto;
+      user-select: none;
+      font-size: 22px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      transition: 0.2s;
+    }
+
+    .closeX:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+  }
+
+  .settingsBody {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 16px 8px;
   }
 
   .settingsRow {
@@ -106,6 +145,10 @@
     align-items: center;
     justify-content: space-between;
     gap: 12px;
+  }
+
+  .settingsRowInput {
+    align-items: flex-start;
   }
 
   .settingsInfo {
@@ -166,6 +209,8 @@
     cursor: pointer;
     background: linear-gradient(90deg, #5865f2, #4e5bd5);
     text-shadow: var(--text-shadow);
+    width: 100%;
+    text-align: center;
   }
 }
 .list {
@@ -526,12 +571,45 @@
 
 .settingsPanel.isOpen {
   display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.settingsPanel .settingsHeader {
+  display: flex;
+  align-items: center;
+  color: var(--title);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0 16px 10px;
+}
+.settingsPanel .settingsHeader .settingsTitle {
+  font-weight: 700;
+}
+.settingsPanel .settingsHeader .closeX {
+  cursor: pointer;
+  margin-left: auto;
+  user-select: none;
+  font-size: 22px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  transition: 0.2s;
+}
+.settingsPanel .settingsHeader .closeX:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+.settingsPanel .settingsBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 16px 8px;
 }
 .settingsPanel .settingsRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+}
+.settingsPanel .settingsRowInput {
+  align-items: flex-start;
 }
 .settingsPanel .settingsInfo {
   display: flex;
@@ -584,6 +662,8 @@
   cursor: pointer;
   background: linear-gradient(90deg, #5865f2, #4e5bd5);
   text-shadow: var(--text-shadow);
+  width: 100%;
+  text-align: center;
 }
 
 .list .item {

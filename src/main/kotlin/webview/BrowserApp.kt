@@ -2,6 +2,9 @@ package com.tbread.webview
 
 import com.tbread.DpsCalculator
 import com.tbread.entity.DpsData
+import com.tbread.packet.CombatPortDetector
+import com.tbread.packet.LocalPlayer
+import com.tbread.packet.PropertyHandler
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.application.Application
@@ -14,10 +17,9 @@ import javafx.stage.Stage
 import javafx.stage.StageStyle
 import javafx.util.Duration
 import javafx.application.Platform
-import kotlinx.serialization.json.Json
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
-import kotlin.system.exitProcess
-
+import kotlinx.serialization.json.Json
 import netscape.javascript.JSObject
 import org.slf4j.LoggerFactory
 import kotlin.system.exitProcess
@@ -26,7 +28,19 @@ class BrowserApp(private val dpsCalculator: DpsCalculator) : Application() {
 
     private val logger = LoggerFactory.getLogger(BrowserApp::class.java)
 
-    class JSBridge(private val stage: Stage,private val dpsCalculator: DpsCalculator,private val hostServices: HostServices,) {
+    @Serializable
+    data class ConnectionInfo(
+        val ip: String?,
+        val port: Int?,
+        val locked: Boolean,
+        val characterName: String?
+    )
+
+    class JSBridge(
+        private val stage: Stage,
+        private val dpsCalculator: DpsCalculator,
+        private val hostServices: HostServices,
+    ) {
         fun moveWindow(x: Double, y: Double) {
             stage.x = x
             stage.y = y
@@ -35,6 +49,29 @@ class BrowserApp(private val dpsCalculator: DpsCalculator) : Application() {
         fun resetDps(){
             dpsCalculator.resetDataStorage()
         }
+
+        fun resetAutoDetection() {
+            CombatPortDetector.reset()
+        }
+
+        fun setCharacterName(name: String?) {
+            val trimmed = name?.trim().orEmpty()
+            LocalPlayer.characterName = if (trimmed.isBlank()) null else trimmed
+        }
+
+        fun getConnectionInfo(): String {
+            val ip = PropertyHandler.getProperty("server.ip")
+            val lockedPort = CombatPortDetector.currentPort()
+            val fallbackPort = PropertyHandler.getProperty("server.port")?.toIntOrNull()
+            val info = ConnectionInfo(
+                ip = ip,
+                port = lockedPort ?: fallbackPort,
+                locked = lockedPort != null,
+                characterName = LocalPlayer.characterName
+            )
+            return Json.encodeToString(info)
+        }
+
         fun openBrowser(url: String) {
             try {
                 hostServices.showDocument(url)
@@ -86,7 +123,7 @@ class BrowserApp(private val dpsCalculator: DpsCalculator) : Application() {
             setBgMethod.isAccessible = true
             setBgMethod.invoke(page, 0)
         } catch (e: Exception) {
-            logger.error("리플렉션 실패",e)
+            logger.error("Failed to set webview background via reflection", e)
         }
 
         stage.initStyle(StageStyle.TRANSPARENT)

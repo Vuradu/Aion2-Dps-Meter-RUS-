@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta
@@ -29,6 +29,7 @@
 
           <div class="headerBtns">
             <div class="headerBtn resetBtn"><i data-lucide="rotate-ccw"></i></div>
+            <div class="headerBtn settingsBtn"><i data-lucide="settings"></i></div>
             <div class="headerBtn collapseBtn">
               <i
                 class="collapseIcon"
@@ -41,9 +42,10 @@
           role="dialog"
           aria-modal="true">
           <div class="detailsHeader">
-            <div class="detailsTitle">상세</div>
+            <div class="detailsTitle">Details</div>
             <div class="tooltip">
-              지속 피해의 타격횟수는 총합 치명타, 강타, 완벽, 백어택, 막기 비율에 포함되지 않습니다.
+              Damage over time hits are not included in total crit, double, perfect, back attack, or
+              parry ratios.
             </div>
 
             <div class="closeX detailsClose">×</div>
@@ -54,18 +56,53 @@
 
             <div class="detailsSkills">
               <div class="skillHeader">
-                <div class="cell name center">스킬명</div>
-                <div class="cell center hit">타격횟수</div>
-                <div class="cell center crit">치명타</div>
-                <div class="cell center parry">패리</div>
-                <div class="cell center perfect">완벽</div>
-                <div class="cell center double">강타</div>
-                <div class="cell center back">백어택</div>
-                <div class="cell dmg">누적 피해량</div>
+                <div class="cell name center">Skill</div>
+                <div class="cell center hit">Hits</div>
+                <div class="cell center crit">Crit</div>
+                <div class="cell center parry">Parry</div>
+                <div class="cell center perfect">Perfect</div>
+                <div class="cell center double">Double</div>
+                <div class="cell center back">Back</div>
+                <div class="cell dmg">Total Damage</div>
               </div>
 
               <div class="skills"></div>
             </div>
+          </div>
+        </div>
+        <div
+          class="settingsPanel"
+          role="dialog"
+          aria-modal="true">
+          <div class="settingsHeader">
+            <div class="settingsTitle">Settings</div>
+            <div class="closeX settingsClose">×</div>
+          </div>
+          <div class="settingsBody">
+            <div class="settingsRow">
+              <div class="settingsInfo">
+                <div class="settingsLabel">Locked server</div>
+                <div class="settingsValue">
+                  <span class="lockedIp">-</span>
+                  <span class="lockedPort">-</span>
+                </div>
+              </div>
+              <button class="settingsAction resetDetectBtn">Reset detection</button>
+            </div>
+            <div class="settingsRow settingsRowInput">
+              <label class="settingsLabel" for="characterNameInput">Character name</label>
+              <input
+                id="characterNameInput"
+                class="characterNameInput"
+                placeholder="Enter your character name" />
+            </div>
+            <label class="settingsCheckbox">
+              <input
+                type="checkbox"
+                class="onlyMeCheckbox" />
+              Only show my character
+            </label>
+            <button class="discordButton">Discuss on Discord</button>
           </div>
         </div>
         <div class="list"></div>
@@ -95,12 +132,12 @@
       class="updateModal"
       id="updateModal">
       <div class="updateModalCard">
-        <div class="updateModalTitle">신규 업데이트</div>
+        <div class="updateModalTitle">New update available</div>
         <div
           class="updateModalText"
           id="updateModalText"></div>
         <div class="updateModalActions">
-          <button class="updateModalBtn primary">확인</button>
+          <button class="updateModalBtn primary">OK</button>
         </div>
       </div>
     </div>

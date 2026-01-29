@@ -5,9 +5,14 @@ class DpsApp {
     if (DpsApp.instance) return DpsApp.instance;
 
     this.POLL_MS = 200;
-    this.USER_NAME = "-------";
+    this.USER_NAME = "";
+    this.onlyShowUser = false;
+    this.storageKeys = {
+      userName: "dpsMeter.userName",
+      onlyShowUser: "dpsMeter.onlyShowUser",
+    };
 
-    this.dpsFormatter = new Intl.NumberFormat("ko-KR");
+    this.dpsFormatter = new Intl.NumberFormat("en-US");
     this.lastJson = null;
     this.isCollapse = false;
 
@@ -78,6 +83,7 @@ class DpsApp {
       dpsFormatter: this.dpsFormatter,
       getDetails: (row) => this.getDetails(row),
     });
+    this.setupSettingsPanel();
     window.ReleaseChecker?.start?.();
 
     this.startPolling();
@@ -211,7 +217,11 @@ class DpsApp {
       this.battleTime.update(now, battleTimeMs);
     }
 
-    // 렌더
+    if (this.onlyShowUser && this.USER_NAME) {
+      rowsToRender = rowsToRender.filter((row) => row.name === this.USER_NAME);
+    }
+
+    // render
     this.elBossName.textContent = targetName ? targetName : "";
     this.meterUI.updateFromRows(rowsToRender);
   }
@@ -287,7 +297,7 @@ class DpsApp {
       if (!value || typeof value !== "object") continue;
 
       const nameRaw = typeof value.skillName === "string" ? value.skillName.trim() : "";
-      const baseName = nameRaw ? nameRaw : `스킬 ${code}`;
+      const baseName = nameRaw ? nameRaw : `Skill ${code}`;
 
       // 공통 
       const pushSkill = ({
@@ -348,7 +358,7 @@ class DpsApp {
       if (Number(String(value.dotDamageAmount ?? "").replace(/,/g, "")) > 0) {
         pushSkill({
           codeKey: `${code}-dot`, // 유니크키
-          name: `${baseName} - 지속피해`,
+          name: `${baseName} - DOT`,
           time: value.dotTimes,
           dmg: value.dotDamageAmount,
           countForTotals: false,
@@ -406,6 +416,107 @@ class DpsApp {
     this.resetBtn?.addEventListener("click", () => {
       this.resetAll({ callBackend: true });
     });
+  }
+
+  setupSettingsPanel() {
+    this.settingsPanel = document.querySelector(".settingsPanel");
+    this.settingsClose = document.querySelector(".settingsClose");
+    this.settingsBtn = document.querySelector(".settingsBtn");
+    this.lockedIp = document.querySelector(".lockedIp");
+    this.lockedPort = document.querySelector(".lockedPort");
+    this.resetDetectBtn = document.querySelector(".resetDetectBtn");
+    this.characterNameInput = document.querySelector(".characterNameInput");
+    this.onlyMeCheckbox = document.querySelector(".onlyMeCheckbox");
+    this.discordButton = document.querySelector(".discordButton");
+
+    const storedName = localStorage.getItem(this.storageKeys.userName) || "";
+    const storedOnlyShow = localStorage.getItem(this.storageKeys.onlyShowUser) === "true";
+
+    this.setUserName(storedName, { persist: false, syncBackend: true });
+    this.setOnlyShowUser(storedOnlyShow, { persist: false });
+
+    if (this.characterNameInput) {
+      this.characterNameInput.value = this.USER_NAME;
+      this.characterNameInput.addEventListener("input", (event) => {
+        const value = event.target?.value ?? "";
+        this.setUserName(value, { persist: true, syncBackend: true });
+      });
+    }
+
+    if (this.onlyMeCheckbox) {
+      this.onlyMeCheckbox.checked = this.onlyShowUser;
+      this.onlyMeCheckbox.addEventListener("change", (event) => {
+        const isChecked = !!event.target?.checked;
+        this.setOnlyShowUser(isChecked, { persist: true });
+      });
+    }
+
+    this.settingsBtn?.addEventListener("click", () => {
+      this.toggleSettingsPanel();
+    });
+
+    this.settingsClose?.addEventListener("click", () => this.closeSettingsPanel());
+
+    this.resetDetectBtn?.addEventListener("click", () => {
+      window.javaBridge?.resetAutoDetection?.();
+      this.refreshConnectionInfo();
+    });
+
+    this.discordButton?.addEventListener("click", () => {
+      window.javaBridge?.openBrowser?.("https://discord.gg/Aion2Global");
+    });
+  }
+
+  toggleSettingsPanel() {
+    if (!this.settingsPanel) return;
+    const isOpen = this.settingsPanel.classList.toggle("isOpen");
+    if (isOpen) {
+      this.detailsUI?.close?.();
+      this.refreshConnectionInfo();
+    }
+  }
+
+  closeSettingsPanel() {
+    this.settingsPanel?.classList.remove("isOpen");
+  }
+
+  setUserName(name, { persist = false, syncBackend = false } = {}) {
+    const trimmed = String(name ?? "").trim();
+    this.USER_NAME = trimmed;
+    if (persist) {
+      localStorage.setItem(this.storageKeys.userName, trimmed);
+    }
+    if (syncBackend) {
+      window.javaBridge?.setCharacterName?.(trimmed);
+    }
+    if (!this.isCollapse) {
+      this.fetchDps();
+    }
+  }
+
+  setOnlyShowUser(enabled, { persist = false } = {}) {
+    this.onlyShowUser = !!enabled;
+    if (persist) {
+      localStorage.setItem(this.storageKeys.onlyShowUser, String(this.onlyShowUser));
+    }
+    if (!this.isCollapse) {
+      this.fetchDps();
+    }
+  }
+
+  refreshConnectionInfo() {
+    if (!this.lockedIp || !this.lockedPort) return;
+    const raw = window.javaBridge?.getConnectionInfo?.();
+    if (typeof raw !== "string") {
+      this.lockedIp.textContent = "-";
+      this.lockedPort.textContent = "-";
+      return;
+    }
+    const info = this.safeParseJSON(raw, {});
+    const ip = info?.ip || "-";
+    const port = Number.isFinite(Number(info?.port)) ? String(info.port) : "Auto";
+    this.lockedIp.textContent = ip;
+    this.lockedPort.textContent = port;
   }
 
   bindDragToMoveWindow() {
