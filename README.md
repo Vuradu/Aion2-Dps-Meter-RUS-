@@ -9,6 +9,7 @@ A combat analysis (DPS meter) tool for **AION 2**. Lovingly forked from [Aion2-D
 [![GitHub Issues](https://img.shields.io/github/issues/taengu/Aion2-Dps-Meter)](https://github.com/taengu/Aion2-Dps-Meter/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/taengu/Aion2-Dps-Meter)](https://github.com/taengu/Aion2-Dps-Meter/pulls)
 
+
 > **Important Notice**  
 > This project will be **paused or made private** if requested by the game operator, if packet encryption or other countermeasures are introduced, or if there is an official statement prohibiting its use.
 
@@ -119,3 +120,5 @@ Use at your own risk.
 ## Community & Support
 
 💬 **Join our Discord:** https://discord.gg/Aion2Global
+☕ [Buy me a Coffee](https://ko-fi.com/hiddencube)
+🎁 [Donate with Crypto](https://nowpayments.io/donation/thehiddencube)
