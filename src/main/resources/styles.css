@@ -347,7 +347,7 @@
   /* top: calc(100% + 4px); */
   top: 0;
   font-weight: bold;
-  width: 756px;
+  width: 1080px;
   border: 1px solid var(--panel-border);
   background: rgba(12, 22, 40, var(--details-bg-opacity, 0.5));
   padding: 6px 4px;
@@ -480,6 +480,7 @@
     .cell.name {
       flex: 0 0 160px;
       justify-content: flex-start;
+      white-space: nowrap;
 
       color: var(--row-fill);
     }
@@ -960,6 +961,7 @@
 .detailsPanel .detailsSkills .cell.name {
   flex: 0 0 160px;
   justify-content: flex-start;
+  white-space: nowrap;
   color: var(--row-fill);
 }
 .detailsPanel .detailsSkills .cell.center {
