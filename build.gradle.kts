@@ -55,11 +55,12 @@ compose.desktop {
         nativeDistributions {
             windows{
                 includeAllModules = true
+                upgradeUuid = "920ef74e-a1ed-4b57-85e4-b4936def4dd2"
             }
             targetFormats(TargetFormat.Msi)
-            packageName = "aion2meter-tw"
-            packageVersion = "0.1.3"
-            copyright = "Copyright 2026 Taengu Licensed under MIT License"
+            packageName = "aion2meter-tw-rus"
+            packageVersion = "0.1.4"
+            copyright = "Copyright 2026 Vuradu Licensed under MIT License"
         }
 
 

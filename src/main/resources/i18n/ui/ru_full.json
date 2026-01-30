@@ -9,7 +9,7 @@
     "settings": {
       "ariaLabel": "Открыть настройки деталей"
     },
-    "panelBackground": "Panel background",
+    "panelBackground": "Прозрачность панели",
     "skills": {
       "skill": "Скилы",
       "hits": "Удары",
