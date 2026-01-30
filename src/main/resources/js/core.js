@@ -540,11 +540,11 @@ class DpsApp {
     if (!Number.isFinite(parsed)) {
       return 0.5;
     }
-    return Math.min(1, Math.max(0.2, parsed));
+    return Math.min(1, Math.max(0, parsed));
   }
 
   setDetailsBackgroundOpacity(opacity, { persist = false } = {}) {
-    const clamped = Math.min(1, Math.max(0.2, opacity));
+    const clamped = Math.min(1, Math.max(0, opacity));
     if (this.detailsPanel) {
       this.detailsPanel.style.setProperty("--details-bg-opacity", clamped);
     }
