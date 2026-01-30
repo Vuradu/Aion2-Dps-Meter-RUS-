@@ -28,7 +28,9 @@ A combat analysis (DPS meter) tool for **AION 2**. Lovingly forked from [Aion2-D
 
 4. Run `aion2meter-tw.exe` **as Administrator** *(installs to C:\Program Files\aion2meter-tw by default)*
 
-5. If the UI appears, the application has started successfully.
+5. **Allow Windows Firewall** prompt
+   - Preferably, expand the menu and tick Private and Public.
+   - This helps ensure data isn't being missed
 
 6. If the DPS meter does not appear:
    - Teleport using a **Kisk**, **Hideout**, or enter/exit a dungeon
@@ -84,6 +86,10 @@ cd Aion2-Dps-Meter
 - The original was written for KR servers and uses a hard-coded method for finding game packets.
 - This version adds auto-detection and support for VPNs/Ping Reducers. It also has been translated to English skills/spells and UI.
 
+**Q: All names/my name shows as numbers?**
+- Name detection can take a little time to work due to the game not sending names that often
+- You can use a teleport scroll or teleport to Legion to try and get it to detect your name faster
+- To save on teleports, if you use Exitlag, enable "Shortcut to restart all connections" option and use it to reload the game and populate names faster.
 
 **Q: The UI appears, but no damage is shown.**  
 - Verify Npcap installation  
