@@ -4,7 +4,7 @@
 
 Инструмент для анализа урона для **AION 2**. Оригинал - [Aion2-Dps-Meter](https://github.com/TK-open-public/Aion2-Dps-Meter). Перевод этого форка - [Aion2-Dps-Meter](https://github.com/taengu/Aion2-Dps-Meter)
 
-🔗 **GitHub Repository:** https://github.com/taengu/Aion2-Dps-Meter  
+🔗 **GitHub Repository:** https://github.com/Vuradu/Aion2-Dps-Meter-RUS-  
 💬 **Discord (Support & Community): https://discord.gg/Aion2Global**
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -53,54 +53,46 @@
   - Yellow: no damage detected (paused)  
   - Grey: combat ended
 
-Clicking a player row opens detailed statistics.
+При нажатии на игрока открывается подробная статистика.
 
-> **Hit count** refers to **successful hits**, not skill casts.
+> **Количество попаданий** относится к **успешным попаданиям**, а не к применению умений.
 
 
 ---
 
 ## FAQ
 
-**Q: What's different from the original meter?**
-- The original was written for KR servers and uses a hard-coded method for finding game packets.
-- This version adds auto-detection and support for VPNs/Ping Reducers. It also has been translated to English skills/spells and UI.
+**Q: Чем отличается от оригинального счетчика?**
+- Оригинал был написан для серверов KR и использует жестко запрограммированный метод поиска игровых пакетов.
+- В этой версии добавлено автоматическое определение и поддержка VPN/Ping Reducers. Также добавлены Английские и Русские скиллы и интерфейс.
 
 
-**Q: The UI appears, but no damage is shown.**  
-- Verify Npcap installation  
-- Exit the app, go to character select, then relaunch
+**Q: Появляется UI, но урон не отображаются.**  
+- Проверь установку Npcap.
+- Выйди из приложения, перейди к выбору персонажа, затем перезапусти приложение.
 
-**Q: I see DPS from others but not myself.**  
-- DPS is calculated based on the monster with the highest total damage  
-- Use the same training dummy as the player(s) already showing on the meter.
+**Q: Я вижу DPS у других, но не у себя.**  
+- DPS рассчитывается на основе монстра с наибольшим общим уроном.
+- Используйте тот же тренировочный манекен, что и игрок (игроки), уже отображаемый на измерителе.
 
-**Q: Contribution is not 100% while solo.**  
-- Name capture may have failed
+**Q: Вклад не составляет 100% при сольной игре.**  
+- Возможно, не удалось получить имя персонажа
 
-**Q: Are chat or command features supported?**  
-- Not currently
+**Q: Поддерживаются ли функции чата или команд?**  
+- В настоящее время нет
 
-**Q: Hit count is higher than skill casts.**  
-- Multi-hit skills count each hit separately
+**Q: Количество попаданий превышает количество применений умений.**  
+- Навыки с мульти-ударами считают каждый удар отдельно.
 
-**Q: Some skills show as numbers.**  
-- These are usually Theostones  
-- Report others via GitHub Issues
-
----
-
-## Download
-
-👉 https://github.com/taengu/Aion2-Dps-Meter/releases
-
-Please do not harass players based on DPS results.  
-Use at your own risk.
+**Q: Некоторые навыки отображаются в виде цифр.**  
+- Обычно это теостоны.  
+- Сообщи о других через GitHub Issues
 
 ---
 
-## Community & Support
+## Скачать
 
-- 💬 **Join our Discord:** https://discord.gg/Aion2Global
-- ☕ [Buy me a Coffee](https://ko-fi.com/hiddencube)
-- 🎁 [Donate with Crypto](https://nowpayments.io/donation/thehiddencube)
+👉 https://github.com/Vuradu/Aion2-Dps-Meter-RUS-/releases
+
+Не буль игроков из-за низкого DPS, это просто игра.  
+Используй на свой страх и риск.
