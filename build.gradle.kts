@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.tbread"
-version = "0.1.3"
+version = "0.1.4"
 
 repositories {
     mavenCentral()
@@ -58,7 +58,7 @@ compose.desktop {
             }
             targetFormats(TargetFormat.Msi)
             packageName = "aion2meter-tw"
-            packageVersion = "0.1.3"
+            packageVersion = "0.1.4"
             copyright = "Copyright 2026 Taengu Licensed under MIT License"
         }
 
