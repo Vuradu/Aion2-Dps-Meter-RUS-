@@ -478,7 +478,7 @@
       flex: 0 0 56px;
     }
     .cell.name {
-      flex: 0 0 160px;
+      flex: 0 0 200px;
       justify-content: flex-start;
       white-space: nowrap;
 
@@ -486,7 +486,7 @@
     }
 
     .cell.dmg {
-      flex: 1;
+      flex: 0 0 220px;
       text-align: center;
     }
     .cell.right {
@@ -959,7 +959,7 @@
   align-items: center;
 }
 .detailsPanel .detailsSkills .cell.name {
-  flex: 0 0 160px;
+  flex: 0 0 200px;
   justify-content: flex-start;
   white-space: nowrap;
   color: var(--row-fill);
@@ -969,7 +969,7 @@
   flex: 0 0 56px;
 }
 .detailsPanel .detailsSkills .cell.dmg {
-  flex: 1;
+  flex: 0 0 220px;
   justify-content: center;
 }
 .detailsPanel .detailsSkills .cell.right {
