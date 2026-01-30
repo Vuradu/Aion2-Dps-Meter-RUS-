@@ -533,9 +533,12 @@ class DpsApp {
   }
 
   parseDetailsOpacity(value) {
+    if (value === null || value === undefined || value === "") {
+      return 0.5;
+    }
     const parsed = Number(value);
     if (!Number.isFinite(parsed)) {
-      return 0.75;
+      return 0.5;
     }
     return Math.min(1, Math.max(0.2, parsed));
   }
