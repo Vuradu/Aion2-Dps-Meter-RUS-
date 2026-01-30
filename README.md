@@ -119,6 +119,6 @@ Use at your own risk.
 
 ## Community & Support
 
-💬 **Join our Discord:** https://discord.gg/Aion2Global
-☕ [Buy me a Coffee](https://ko-fi.com/hiddencube)
-🎁 [Donate with Crypto](https://nowpayments.io/donation/thehiddencube)
+- 💬 **Join our Discord:** https://discord.gg/Aion2Global
+- ☕ [Buy me a Coffee](https://ko-fi.com/hiddencube)
+- 🎁 [Donate with Crypto](https://nowpayments.io/donation/thehiddencube)
