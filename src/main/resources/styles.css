@@ -347,10 +347,10 @@
   /* top: calc(100% + 4px); */
   top: 0;
   font-weight: bold;
-  width: 1080px;
+  width: 864px;
   border: 1px solid var(--panel-border);
   background: rgba(12, 22, 40, var(--details-bg-opacity, 0.5));
-  padding: 16px 8px;
+  padding: 6px 4px;
   border-radius: var(--rounded-lg);
 
   &.open {
@@ -361,8 +361,8 @@
     align-items: center;
     color: var(--title);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 0 28px;
-    padding-bottom: 12px;
+    padding: 0 12px;
+    padding-bottom: 6px;
 
     .tooltip {
       opacity: 0.6;
@@ -426,9 +426,9 @@
 
   .detailsStats {
     display: grid;
-    gap: 12px 24px;
+    gap: 6px 12px;
     grid-template-columns: repeat(2, 1fr);
-    padding: 12px 28px;
+    padding: 6px 12px;
 
     .stat {
       display: flex;
@@ -469,33 +469,39 @@
 
   .detailsSkills {
     .cell {
-      min-width: 60px;
+      min-width: 46px;
+      display: flex;
+      align-items: center;
     }
     .cell.center {
-      text-align: center;
+      justify-content: center;
+      flex: 0 0 56px;
     }
     .cell.name {
-      flex: 0 0 210px;
+      flex: 0 0 200px;
+      justify-content: flex-start;
+      white-space: nowrap;
 
       color: var(--row-fill);
     }
 
     .cell.dmg {
-      flex: 1;
+      flex: 0 0 220px;
       text-align: center;
     }
     .cell.right {
-      text-align: right;
+      justify-content: flex-end;
     }
     .cell.center {
-      text-align: center;
+      justify-content: center;
+      flex: 0 0 56px;
     }
 
     .skillHeader {
       display: flex;
       align-items: center;
-      gap: 24px;
-      padding: 12px 28px;
+      gap: 12px;
+      padding: 6px 12px;
 
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       .cell.name {
@@ -504,7 +510,7 @@
     }
     .skills {
       max-height: 562px;
-      padding: 0 28px;
+      padding: 0 12px;
       overflow-y: auto;
       overflow-x: hidden;
       scrollbar-gutter: stable;
@@ -531,8 +537,8 @@
       .skillRow {
         display: flex;
         align-items: center;
-        gap: 24px;
-        padding: 6px 0;
+        gap: 12px;
+        padding: 2px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         &:last-child {
           border-bottom: none;
@@ -541,7 +547,7 @@
         .cell.dmg {
           position: relative;
           overflow: hidden;
-          height: 32px;
+          height: 20px;
 
           .dmgFill {
             position: absolute;
@@ -851,8 +857,8 @@
   align-items: center;
   color: var(--title);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 0 28px;
-  padding-bottom: 12px;
+  padding: 0 12px;
+  padding-bottom: 6px;
 }
 .detailsPanel .detailsHeader .tooltip {
   opacity: 0.6;
@@ -938,9 +944,9 @@
 }
 .detailsPanel .detailsStats {
   display: grid;
-  gap: 12px 24px;
+  gap: 6px 12px;
   grid-template-columns: repeat(2, 1fr);
-  padding: 12px 28px;
+  padding: 6px 12px;
 }
 .detailsPanel .detailsStats .stat {
   display: flex;
@@ -948,27 +954,32 @@
   gap: 12px;
 }
 .detailsPanel .detailsSkills .cell {
-  min-width: 60px;
-}
-.detailsPanel .detailsSkills .cell.center {
-  text-align: center;
+  min-width: 46px;
+  display: flex;
+  align-items: center;
 }
 .detailsPanel .detailsSkills .cell.name {
-  flex: 0 0 210px;
+  flex: 0 0 200px;
+  justify-content: flex-start;
+  white-space: nowrap;
   color: var(--row-fill);
 }
+.detailsPanel .detailsSkills .cell.center {
+  justify-content: center;
+  flex: 0 0 56px;
+}
 .detailsPanel .detailsSkills .cell.dmg {
-  flex: 1;
-  text-align: center;
+  flex: 0 0 220px;
+  justify-content: center;
 }
 .detailsPanel .detailsSkills .cell.right {
-  text-align: right;
+  justify-content: flex-end;
 }
 .detailsPanel .detailsSkills .skillHeader {
   display: flex;
   align-items: center;
-  gap: 24px;
-  padding: 12px 28px;
+  gap: 12px;
+  padding: 6px 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 .detailsPanel .detailsSkills .skillHeader .cell.name {
@@ -976,7 +987,7 @@
 }
 .detailsPanel .detailsSkills .skills {
   max-height: 562px;
-  padding: 0 28px;
+  padding: 0 12px;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-gutter: stable;
@@ -1000,8 +1011,8 @@
 .detailsPanel .detailsSkills .skills .skillRow {
   display: flex;
   align-items: center;
-  gap: 24px;
-  padding: 6px 0;
+  gap: 12px;
+  padding: 2px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 .detailsPanel .detailsSkills .skills .skillRow:last-child {
@@ -1010,7 +1021,7 @@
 .detailsPanel .detailsSkills .skills .skillRow .cell.dmg {
   position: relative;
   overflow: hidden;
-  height: 32px;
+  height: 20px;
 }
 .detailsPanel .detailsSkills .skills .skillRow .cell.dmg .dmgFill {
   position: absolute;

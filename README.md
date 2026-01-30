@@ -27,7 +27,7 @@
 
 4. Запусти `aion2meter-tw.exe` **от администратора** *(по дефолту устанавливается в C:\Program Files\aion2meter-tw)*
 
-5. Если появится UI, приложение запущено успешно.
+5. If the UI appears, the application has started successfully.
 
 6. Если DPS метр не появился:
    - Телепортируйся используя **киск**, **убежище** или зайди\выйди в данж
@@ -66,6 +66,10 @@
 - Оригинал был написан для серверов KR и использует жестко запрограммированный метод поиска игровых пакетов.
 - В этой версии добавлено автоматическое определение и поддержка VPN/Ping Reducers. Также добавлены Английские и Русские скиллы и интерфейс.
 
+**Q: All names/my name shows as numbers?**
+- Name detection can take a little time to work due to the game not sending names that often
+- You can use a teleport scroll or teleport to Legion to try and get it to detect your name faster
+- To save on teleports, if you use Exitlag, enable "Shortcut to restart all connections" option and use it to reload the game and populate names faster.
 
 **Q: Появляется UI, но урон не отображаются.**  
 - Проверь установку Npcap.
