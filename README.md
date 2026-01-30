@@ -1,46 +1,45 @@
-# AION2meter-TW
+# AION2meter-TW(RUS)
 
-A combat analysis (DPS meter) tool for **AION 2**. Lovingly forked from [Aion2-Dps-Meter](https://github.com/TK-open-public/Aion2-Dps-Meter)
+**Это не оригинальный DPS-метр, а лишь перевод уже созданного ранее. Ничего в коде не изменено и меняться не будет.**
+
+Инструмент для анализа урона для **AION 2**. Оригинал - [Aion2-Dps-Meter](https://github.com/TK-open-public/Aion2-Dps-Meter). Перевод этого форка - [Aion2-Dps-Meter](https://github.com/taengu/Aion2-Dps-Meter)
 
 🔗 **GitHub Repository:** https://github.com/taengu/Aion2-Dps-Meter  
 💬 **Discord (Support & Community): https://discord.gg/Aion2Global**
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![GitHub Issues](https://img.shields.io/github/issues/taengu/Aion2-Dps-Meter)](https://github.com/taengu/Aion2-Dps-Meter/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/taengu/Aion2-Dps-Meter)](https://github.com/taengu/Aion2-Dps-Meter/pulls)
 
-
-> **Important Notice**  
-> This project will be **paused or made private** if requested by the game operator, if packet encryption or other countermeasures are introduced, or if there is an official statement prohibiting its use.
+> **Важно!**  
+> Этот проект будет **приостановлен или сделан приватным** по запросу разработчика игры, в случае введения шифрования пакетов или других контрмер, а также в случае появления официального заявления, запрещающего его использование.
 
 ---
 
-## Usage
+## Установка.
 
-1. Install **Npcap**:  
+1. Установите **Npcap**:  
    https://npcap.com/#download  
-   - You **must** check **“Install Npcap in WinPcap API-compatible Mode”**
+   - Ты **должен** поставить галочку **“Install Npcap in WinPcap API-compatible Mode”**
 
-2. Download the latest release and install:  
-   👉 https://github.com/taengu/Aion2-Dps-Meter/releases
+2. Скачай последний релиз:  
+   👉 https://github.com/Vuradu/Aion2-Dps-Meter-RUS-/releases
 
-3. If AION 2 is already running, **go to the character selection screen first**.
+3. Если AION 2 уже запущен, **перейди на экран выбора персонажа**.
 
-4. Run `aion2meter-tw.exe` **as Administrator** *(installs to C:\Program Files\aion2meter-tw by default)*
+4. Запусти `aion2meter-tw.exe` **от администратора** *(по дефолту устанавливается в C:\Program Files\aion2meter-tw)*
 
-5. If the UI appears, the application has started successfully.
+5. Если появится UI, приложение запущено успешно.
 
-6. If the DPS meter does not appear:
-   - Teleport using a **Kisk**, **Hideout**, or enter/exit a dungeon
-   - Then repeat steps **3–4**
+6. Если DPS метр не появился:
+   - Телепортируйся используя **киск**, **убежище** или зайди\выйди в данж
+   - Затем повтори шаги **3–4**
 
-7. If the meter stops working after previously functioning:
-   - Teleport or enter a dungeon again to refresh packet capture
-   - If it still does not work, restart from step **3**
+7. Если счетчик перестал работать после того, как ранее функционировал:
+   - Телепортируйся или снова войди в подземелье, чтобы обновить захват пакетов.
+   - Если не помогло, начни с шага **3**
 
 ---
 
-## UI Explanation
+## Объяснение интерфейса.
 
 - **Blue box** – Monster name display (planned)
 - **Brown box** – Reset current combat data
@@ -57,23 +56,6 @@ A combat analysis (DPS meter) tool for **AION 2**. Lovingly forked from [Aion2-D
 Clicking a player row opens detailed statistics.
 
 > **Hit count** refers to **successful hits**, not skill casts.
-
-
-## Build Instructions
-> ⚠️ **Regular users do NOT need to build the project.**  
-> This section is for developers only.
-
-```bash
-# Clone the repository
-git clone https://github.com/taengu/Aion2-Dps-Meter.git
-
-# Enter the directory
-cd Aion2-Dps-Meter
-
-# Build the distribution (Windows)
-./gradlew packageDistributionForCurrentOS
-```
-
 
 
 ---
