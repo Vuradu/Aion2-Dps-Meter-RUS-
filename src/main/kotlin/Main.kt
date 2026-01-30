@@ -16,7 +16,7 @@ fun main() = runBlocking {
         e.printStackTrace()
     }
 
-    WindowsFirewallPrompt.requestInboundAccess()
+    WindowsFirewallListener.openOnStartup()
 
     val channel = Channel<CapturedPayload>(Channel.UNLIMITED)
     val config = PcapCapturerConfig.loadFromProperties()
