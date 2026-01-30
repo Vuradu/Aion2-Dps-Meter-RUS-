@@ -59,7 +59,7 @@ compose.desktop {
             }
             targetFormats(TargetFormat.Msi)
             packageName = "aion2meter-tw-rus"
-            packageVersion = "0.1.4"
+            packageVersion = "0.1.41"
             copyright = "Copyright 2026 Vuradu Licensed under MIT License"
         }
 
