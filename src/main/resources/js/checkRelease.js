@@ -1,6 +1,6 @@
 (() => {
-  const API = "https://api.github.com/repos/taengu/Aion2-Dps-Meter/releases/latest";
-  const URL = "https://github.com/taengu/Aion2-Dps-Meter/releases";
+  const API = "https://api.github.com/repos/Vuradu/Aion2-Dps-Meter-RUS-/releases/latest";
+  const URL = "https://github.com/Vuradu/Aion2-Dps-Meter-RUS-/releases";
   const START_DELAY = 800,
     RETRY = 500,
     LIMIT = 5;
