@@ -124,12 +124,14 @@ class StreamProcessor(private val dataStorage: DataStorage) {
                 val possibleNameLength = packet[innerOffset + 5].toInt() and 0xff
                 if (innerOffset + 6 + possibleNameLength <= packet.size) {
                     val possibleNameBytes = packet.copyOfRange(innerOffset + 6, innerOffset + 6 + possibleNameLength)
-                    if (hasPossibilityNickname(String(possibleNameBytes, Charsets.UTF_8))) {
-                        logger.debug(
-                            "Potential nickname found in pattern 1: {}",
-                            String(possibleNameBytes, Charsets.UTF_8)
+                    val possibleName = String(possibleNameBytes, Charsets.UTF_8)
+                    if (hasPossibilityNickname(possibleName)) {
+                        logger.info(
+                            "Potential nickname found in pattern 1: {} (hex={})",
+                            possibleName,
+                            toHex(possibleNameBytes)
                         )
-                        dataStorage.appendNickname(info.value, String(possibleNameBytes, Charsets.UTF_8))
+                        dataStorage.appendNickname(info.value, possibleName)
                         originOffset++
                     }
                 }
@@ -138,12 +140,14 @@ class StreamProcessor(private val dataStorage: DataStorage) {
                 val possibleNameLength = packet[innerOffset + 2].toInt() and 0xff
                 if (packet.size >= innerOffset + possibleNameLength + 3 && possibleNameLength.toInt() != 0) {
                     val possibleNameBytes = packet.copyOfRange(innerOffset + 3, innerOffset + possibleNameLength + 3)
-                    if (hasPossibilityNickname(String(possibleNameBytes, Charsets.UTF_8))) {
-                        logger.debug(
-                            "Potential nickname found in pattern 2: {}",
-                            String(possibleNameBytes, Charsets.UTF_8)
+                    val possibleName = String(possibleNameBytes, Charsets.UTF_8)
+                    if (hasPossibilityNickname(possibleName)) {
+                        logger.info(
+                            "Potential nickname found in pattern 2: {} (hex={})",
+                            possibleName,
+                            toHex(possibleNameBytes)
                         )
-                        dataStorage.appendNickname(info.value, String(possibleNameBytes, Charsets.UTF_8))
+                        dataStorage.appendNickname(info.value, possibleName)
                         originOffset++
                     }
                 }
@@ -154,12 +158,14 @@ class StreamProcessor(private val dataStorage: DataStorage) {
                     if (packet.size > innerOffset + possibleNameLength + 6) {
                         val possibleNameBytes =
                             packet.copyOfRange(innerOffset + 6, innerOffset + possibleNameLength + 6)
-                        if (hasPossibilityNickname(String(possibleNameBytes, Charsets.UTF_8))) {
-                            logger.debug(
-                                "Potential nickname found in new pattern: {}",
-                                String(possibleNameBytes, Charsets.UTF_8)
+                        val possibleName = String(possibleNameBytes, Charsets.UTF_8)
+                        if (hasPossibilityNickname(possibleName)) {
+                            logger.info(
+                                "Potential nickname found in new pattern: {} (hex={})",
+                                possibleName,
+                                toHex(possibleNameBytes)
                             )
-                            dataStorage.appendNickname(info.value, String(possibleNameBytes, Charsets.UTF_8))
+                            dataStorage.appendNickname(info.value, possibleName)
                             originOffset++
                         }
                     }
