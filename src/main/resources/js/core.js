@@ -797,11 +797,13 @@ class DpsApp {
       return;
     }
     const info = this.safeParseJSON(raw, {});
+    const deviceName = typeof info?.device === "string" && info.device.trim() ? info.device : "";
     const rawIp = info?.ip || "-";
     const ip =
-      rawIp === "127.0.0.1" || rawIp === "::1"
+      deviceName ||
+      (rawIp === "127.0.0.1" || rawIp === "::1"
         ? this.i18n?.t("connection.loopback", "Local Loopback") ?? "Local Loopback"
-        : rawIp;
+        : rawIp);
     const port = Number.isFinite(Number(info?.port))
       ? String(info.port)
       : this.i18n?.t("connection.auto", "Auto");
