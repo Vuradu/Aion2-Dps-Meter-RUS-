@@ -3,7 +3,7 @@
     "title": "水錶",
     "display": {
       "dps": "DPS",
-      "total": "總傷害",
+      "total": "DMG",
       "ariaDps": "顯示 DPS",
       "ariaDamage": "顯示總傷害"
     }

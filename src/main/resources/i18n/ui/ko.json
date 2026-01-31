@@ -3,7 +3,7 @@
     "title": "DPS 미터",
     "display": {
       "dps": "DPS",
-      "total": "총 피해",
+      "total": "DMG",
       "ariaDps": "DPS 표시 중",
       "ariaDamage": "총 피해 표시 중"
     }

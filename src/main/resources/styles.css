@@ -76,23 +76,22 @@
     align-items: center;
     font-weight: bold;
     color: white;
-    gap: 8px;
+    gap: 6px;
     text-shadow: var(--text-shadow);
     cursor: pointer;
     .headerBtn {
       display: flex;
       align-items: center;
-      width: 20px;
+      width: 18px;
       height: 20px;
     }
     .metricToggleBtn {
       width: auto;
       height: auto;
-      min-width: 56px;
-      padding: 2px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      background: rgba(0, 0, 0, 0.35);
+      min-width: 36px;
+      padding: 0;
+      border: none;
+      background: transparent;
       color: inherit;
       font-size: 12px;
       font-weight: 700;
@@ -273,6 +272,7 @@
     inset: 0;
 
     background: var(--row-fill);
+    opacity: 0.5;
     transform-origin: left center;
     transform: scaleX(0);
 

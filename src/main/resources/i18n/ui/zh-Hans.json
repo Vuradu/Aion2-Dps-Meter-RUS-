@@ -3,7 +3,7 @@
     "title": "水表",
     "display": {
       "dps": "DPS",
-      "total": "总伤害",
+      "total": "DMG",
       "ariaDps": "显示 DPS",
       "ariaDamage": "显示总伤害"
     }
