@@ -1,9 +1,10 @@
 :root {
-  --row-fill: #11138d;
+  --row-fill: #1d1e49;
   --isUser-fill: #65d635;
-  --warning-fill: #141552;
+  --warning-fill: #46477e;
   --error-fill: #c24343;
   --dps: #29ff6f;
+  --skill-fill: #29ff6f;
 
   --text-color: rgb(255, 255, 255);
   --text-shadow:
@@ -962,7 +963,7 @@
   flex: 0 0 200px;
   justify-content: flex-start;
   white-space: nowrap;
-  color: var(--row-fill);
+  color: var(--skill-fill);
 }
 .detailsPanel .detailsSkills .cell.center {
   justify-content: center;
