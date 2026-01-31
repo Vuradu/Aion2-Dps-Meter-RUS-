@@ -27,7 +27,7 @@
       "totalDamage": "Общий урон"
     },
     "stats": {
-      "totalDamage": "Общий урон",
+      "totalDamage": "Всего урона",
       "contribution": "Вклад",
       "critRate": "Процент крита",
       "perfectRate": "Процент идеальных ударов",

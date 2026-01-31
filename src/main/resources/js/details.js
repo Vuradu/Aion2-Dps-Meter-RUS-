@@ -206,9 +206,8 @@ const createDetailsUI = ({
       const nameSpan = document.createElement("span");
       nameSpan.textContent = skill.name ?? "";
 
-      view.nameEl.replaceChildren(iconImg, document.createTextNode("   "), nameSpan);
-
       //view.nameEl.textContent = skill.name ?? "";
+      view.nameEl.replaceChildren(iconImg, document.createTextNode(" "), nameSpan);
       view.hitEl.textContent = `${hits}`;
       view.critEl.textContent = `${critRate}%`;
       view.parryEl.textContent = `${parryRate}%`;
