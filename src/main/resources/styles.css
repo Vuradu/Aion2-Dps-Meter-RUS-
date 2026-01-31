@@ -7,8 +7,8 @@
 
   --text-color: rgb(255, 255, 255);
   --text-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.65),
-    0 2px 8px rgba(0, 0, 0, 0.35);
+    0 1px 2px rgba(0, 0, 0, 0.8),
+    0 2px 8px rgba(0, 0, 0, 0.4);
 
   --rounded-lg: 12px;
   --rounded: 10px;
