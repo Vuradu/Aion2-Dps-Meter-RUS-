@@ -8,6 +8,7 @@ import com.sun.jna.platform.win32.User32
 import com.sun.jna.platform.win32.WinDef
 import com.sun.jna.platform.win32.WinNT
 import com.sun.jna.platform.win32.WinUser
+import com.sun.jna.ptr.IntByReference
 import org.slf4j.LoggerFactory
 
 object WindowTitleDetector {
@@ -49,22 +50,20 @@ object WindowTitleDetector {
         }
     }
 
-    private fun getProcessName(hwnd: WinUser.HWND): String? {
-        val processId = IntArray(1)
+    private fun getProcessName(hwnd: WinDef.HWND): String? {
+        val processId = IntByReference()
         User32.INSTANCE.GetWindowThreadProcessId(hwnd, processId)
         val handle = Kernel32.INSTANCE.OpenProcess(
             WinNT.PROCESS_QUERY_INFORMATION or WinNT.PROCESS_VM_READ,
             false,
-            processId[0]
+            processId.value
         ) ?: return null
         return try {
             val buffer = CharArray(WinDef.MAX_PATH)
-            val length = Psapi.INSTANCE.GetModuleBaseName(handle, null, buffer, buffer.size)
-            if (length > 0) {
-                String(buffer, 0, length)
-            } else {
-                null
-            }
+            val length = Psapi.INSTANCE.GetModuleFileNameExW(handle, null, buffer, buffer.size)
+            if (length <= 0) return null
+            val fullPath = String(buffer, 0, length)
+            fullPath.substringAfterLast('\\')
         } catch (e: Exception) {
             null
         } finally {
