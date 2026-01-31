@@ -34,7 +34,8 @@ class BrowserApp(private val dpsCalculator: DpsCalculator) : Application() {
         val ip: String?,
         val port: Int?,
         val locked: Boolean,
-        val characterName: String?
+        val characterName: String?,
+        val device: String?
     )
 
     class JSBridge(
@@ -67,12 +68,15 @@ class BrowserApp(private val dpsCalculator: DpsCalculator) : Application() {
         fun getConnectionInfo(): String {
             val ip = PropertyHandler.getProperty("server.ip")
             val lockedPort = CombatPortDetector.currentPort()
+            val lockedDevice = CombatPortDetector.currentDevice()
+            val storedDevice = PropertyHandler.getProperty("server.device")
             val fallbackPort = PropertyHandler.getProperty("server.port")?.toIntOrNull()
             val info = ConnectionInfo(
                 ip = ip,
                 port = lockedPort ?: fallbackPort,
                 locked = lockedPort != null,
-                characterName = LocalPlayer.characterName
+                characterName = LocalPlayer.characterName,
+                device = lockedDevice ?: storedDevice
             )
             return Json.encodeToString(info)
         }
@@ -96,6 +100,14 @@ class BrowserApp(private val dpsCalculator: DpsCalculator) : Application() {
             } catch (e: Exception) {
                 null
             }
+        }
+
+        fun getSetting(key: String): String? {
+            return PropertyHandler.getProperty(key)
+        }
+
+        fun setSetting(key: String, value: String) {
+            PropertyHandler.setProperty(key, value)
         }
         fun exitApp() {
           Platform.exit()     
