@@ -1073,11 +1073,10 @@
   text-shadow: var(--text-shadow);
 }
 
-/* Skill icons */
-.cell.name {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.cell.name span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .skillIcon {

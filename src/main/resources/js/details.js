@@ -166,7 +166,7 @@ const createDetailsUI = ({
     for (let i = 0; i < skillSlots.length; i++) {
       const view = skillSlots[i];
       const skill = topSkills[i];
-        
+
       if (!skill) {
         view.rowEl.style.display = "none";
         view.dmgFillEl.style.transform = "scaleX(0)";
@@ -193,27 +193,24 @@ const createDetailsUI = ({
       const backRate = pct(back, hits);
       const perfectRate = pct(perfect, hits);
       const doubleRate = pct(double, hits);
-    
-      /* SkillName + SkillIcon */
-      view.nameEl.innerHTML = "";
-    
-      const icon = document.createElement("img");
-      icon.className = "skillIcon";
-      icon.src = `assets/skills/${skill.code}.png`;
-      icon.onerror = () => {
-        icon.src = "assets/skills/unknown.png";
+
+      const iconCode = String(skill.code).split("-")[0].trim();
+      const iconImg = document.createElement("img");
+      iconImg.className = "skillIcon";
+      iconImg.src = `./assets/skills/${iconCode}.png`;
+      iconImg.onerror = () => {
+        iconImg.onerror = null;
+        iconImg.src = "./assets/skills/unknown.png";
       };
-    
-      const nameText = document.createElement("span");
-      nameText.textContent = skill.name ?? "";
-    
-      view.nameEl.appendChild(icon);
-      view.nameEl.appendChild(nameText);
-      /* ========================= */
-    
+      
+      const nameSpan = document.createElement("span");
+      nameSpan.textContent = skill.name ?? "";
+
+      view.nameEl.replaceChildren(iconImg, document.createTextNode("   "), nameSpan);
+
+      //view.nameEl.textContent = skill.name ?? "";
       view.hitEl.textContent = `${hits}`;
       view.critEl.textContent = `${critRate}%`;
-    
       view.parryEl.textContent = `${parryRate}%`;
       view.backEl.textContent = `${backRate}%`;
       view.perfectEl.textContent = `${perfectRate}%`;
@@ -221,7 +218,8 @@ const createDetailsUI = ({
     
       view.dmgTextEl.textContent = `${formatNum(damage)} (${damageRate.toFixed(1)}%)`;
       view.dmgFillEl.style.transform = `scaleX(${barFillRatio})`;
-}
+    }
+
 
   };
 
