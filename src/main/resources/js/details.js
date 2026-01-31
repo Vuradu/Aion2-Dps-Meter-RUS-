@@ -166,15 +166,15 @@ const createDetailsUI = ({
     for (let i = 0; i < skillSlots.length; i++) {
       const view = skillSlots[i];
       const skill = topSkills[i];
-
+        
       if (!skill) {
         view.rowEl.style.display = "none";
         view.dmgFillEl.style.transform = "scaleX(0)";
         continue;
       }
-
+    
       view.rowEl.style.display = "";
-
+    
       const damage = skill.dmg || 0;
       const barFillRatio = clamp01(damage / percentBaseTotal);
       const hits = skill.time || 0;
@@ -183,29 +183,46 @@ const createDetailsUI = ({
       const perfect = skill.perfect || 0;
       const double = skill.double || 0;
       const back = skill.back || 0;
-
+    
       const pct = (num, den) => (den > 0 ? Math.round((num / den) * 100) : 0);
-
+    
       const damageRate = percentBaseTotal > 0 ? (damage / percentBaseTotal) * 100 : 0;
-
+    
       const critRate = pct(crits, hits);
       const parryRate = pct(parry, hits);
       const backRate = pct(back, hits);
       const perfectRate = pct(perfect, hits);
       const doubleRate = pct(double, hits);
-
-      view.nameEl.textContent = skill.name ?? "";
+    
+      /* SkillName + SkillIcon */
+      view.nameEl.innerHTML = "";
+    
+      const icon = document.createElement("img");
+      icon.className = "skillIcon";
+      icon.src = `assets/skills/${skill.code}.png`;
+      icon.onerror = () => {
+        icon.src = "assets/skills/unknown.png";
+      };
+    
+      const nameText = document.createElement("span");
+      nameText.textContent = skill.name ?? "";
+    
+      view.nameEl.appendChild(icon);
+      view.nameEl.appendChild(nameText);
+      /* ========================= */
+    
       view.hitEl.textContent = `${hits}`;
       view.critEl.textContent = `${critRate}%`;
-
+    
       view.parryEl.textContent = `${parryRate}%`;
       view.backEl.textContent = `${backRate}%`;
       view.perfectEl.textContent = `${perfectRate}%`;
       view.doubleEl.textContent = `${doubleRate}%`;
-
+    
       view.dmgTextEl.textContent = `${formatNum(damage)} (${damageRate.toFixed(1)}%)`;
       view.dmgFillEl.style.transform = `scaleX(${barFillRatio})`;
-    }
+}
+
   };
 
   let currentRowName = "";

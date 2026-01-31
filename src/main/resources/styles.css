@@ -1072,3 +1072,17 @@
   color: white;
   text-shadow: var(--text-shadow);
 }
+
+/* Skill icons */
+.cell.name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.skillIcon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
