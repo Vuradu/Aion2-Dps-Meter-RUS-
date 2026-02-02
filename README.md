@@ -1,6 +1,10 @@
-# AION2meter-TW
+# AION2 DPS Meter
 
-A combat analysis (DPS meter) tool for **AION 2**. Lovingly forked from [Aion2-Dps-Meter](https://github.com/TK-open-public/Aion2-Dps-Meter)
+A combat analysis (DPS meter) tool for **AION 2**, Taiwan or Korea servers.
+
+Our goal is to make a community tool that doesn't rely on methods that might intefere with the game in ways that break the terms of service. This tool is offered **for free**, ready to install, with instructions below.
+
+If you'd like to get involved, you can reach us on Discord from the link below!
 
 🔗 **GitHub Repository:** https://github.com/taengu/Aion2-Dps-Meter  
 💬 **Discord (Support & Community): https://discord.gg/Aion2Global**
@@ -9,13 +13,14 @@ A combat analysis (DPS meter) tool for **AION 2**. Lovingly forked from [Aion2-D
 [![GitHub Issues](https://img.shields.io/github/issues/taengu/Aion2-Dps-Meter)](https://github.com/taengu/Aion2-Dps-Meter/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/taengu/Aion2-Dps-Meter)](https://github.com/taengu/Aion2-Dps-Meter/pulls)
 
-
+Lovingly forked from [Aion2-Dps-Meter](https://github.com/TK-open-public/Aion2-Dps-Meter)
+ 
 > **Important Notice**  
 > This project will be **paused or made private** if requested by the game operator, if packet encryption or other countermeasures are introduced, or if there is an official statement prohibiting its use.
 
 ---
 
-## Usage
+## How to Install
 
 1. Install **Npcap**:  
    https://npcap.com/#download  
@@ -28,7 +33,7 @@ A combat analysis (DPS meter) tool for **AION 2**. Lovingly forked from [Aion2-D
 
 4. Run `aion2meter-tw.exe` **as Administrator** *(installs to C:\Program Files\aion2meter-tw by default)*
 
-5. **Allow Windows Firewall** prompt
+5. **Allow Windows Firewall** prompt when you first open the app.
    - Preferably, expand the menu and tick Private and Public.
    - This helps ensure data isn't being missed
 
