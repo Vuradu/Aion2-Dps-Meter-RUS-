@@ -136,6 +136,10 @@ Use at your own risk.
 ## Community & Support
 
 - 💬 **Join our Discord:** https://discord.gg/Aion2Global
-- ☕ [Buy me a Coffee](https://ko-fi.com/hiddencube)
-- 🅿️ [Send with PayPal](https://www.paypal.me/taengoo)
-- 🎁 [Donate with Crypto](https://nowpayments.io/donation/thehiddencube)
+- **Say thanks and fund new cool projects & features!**
+  - ☕ [Buy me a Coffee](https://ko-fi.com/hiddencube)
+  - 🅿️ [Send with PayPal](https://www.paypal.me/taengoo)
+  - 🎁 [Donate with Crypto](https://nowpayments.io/donation/thehiddencube)
+  - **BTC**: `1GexKhgVZPYRqpfCKydXLoNUXRRRUoAUwT`
+  - **ETH**: `0x38F0bc371A563A24eCa6034cFf77eB6173c7e3e7`
+  - **USDC**: `0xA9571Fc95666350f6DFFB8Fb80ee27eE7db46b56`
