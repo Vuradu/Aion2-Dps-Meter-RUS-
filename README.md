@@ -137,4 +137,5 @@ Use at your own risk.
 
 - 💬 **Join our Discord:** https://discord.gg/Aion2Global
 - ☕ [Buy me a Coffee](https://ko-fi.com/hiddencube)
+- 🅿️ [Send with PayPal](https://www.paypal.me/taengoo)
 - 🎁 [Donate with Crypto](https://nowpayments.io/donation/thehiddencube)
