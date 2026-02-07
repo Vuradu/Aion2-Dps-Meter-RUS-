@@ -2,6 +2,7 @@ package com.tbread
 
 import com.tbread.entity.ParsedDamagePacket
 import com.tbread.logging.DebugLogWriter
+import com.tbread.packet.LocalPlayer
 import org.slf4j.LoggerFactory
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentSkipListSet
@@ -11,6 +12,7 @@ class DataStorage {
     private val byTargetStorage = ConcurrentHashMap<Int, ConcurrentSkipListSet<ParsedDamagePacket>>()
     private val byActorStorage = ConcurrentHashMap<Int, ConcurrentSkipListSet<ParsedDamagePacket>>()
     private val nicknameStorage = ConcurrentHashMap<Int, String>()
+    private val pendingNicknameStorage = ConcurrentHashMap<Int, String>()
     private val summonStorage = HashMap<Int, Int>()
     private val skillCodeData = HashMap<Int, String>()
     private val mobCodeData = HashMap<Int, String>()
@@ -23,6 +25,7 @@ class DataStorage {
             .add(pdp)
         byTargetStorage.getOrPut(pdp.getTargetId()) { ConcurrentSkipListSet(compareBy<ParsedDamagePacket> { it.getTimeStamp() }.thenBy { it.getUuid() }) }
             .add(pdp)
+        applyPendingNickname(pdp.getActorId())
     }
 
     fun setCurrentTarget(targetId:Int){
@@ -47,7 +50,13 @@ class DataStorage {
     }
 
     fun appendNickname(uid: Int, nickname: String) {
-        if (nicknameStorage[uid] != null && nicknameStorage[uid].equals(nickname)) return
+        if (nicknameStorage[uid] != null && nicknameStorage[uid].equals(nickname)) {
+            val localName = LocalPlayer.characterName?.trim().orEmpty()
+            if (localName.isNotBlank() && nickname.trim() == localName) {
+                LocalPlayer.playerId = uid.toLong()
+            }
+            return
+        }
         if (nicknameStorage[uid] != null &&
             nickname.toByteArray(Charsets.UTF_8).size == 2 &&
             nickname.toByteArray(Charsets.UTF_8).size < nicknameStorage[uid]!!.toByteArray(Charsets.UTF_8).size
@@ -64,6 +73,34 @@ class DataStorage {
         logger.debug("Nickname registered {} -> {}", nicknameStorage[uid], nickname)
         DebugLogWriter.debug(logger, "Nickname registered {} -> {}", nicknameStorage[uid], nickname)
         nicknameStorage[uid] = nickname
+
+        val localName = LocalPlayer.characterName?.trim().orEmpty()
+        if (localName.isNotBlank() && nickname.trim() == localName) {
+            LocalPlayer.playerId = uid.toLong()
+        }
+    }
+
+    fun bindNickname(uid: Int, nickname: String) {
+        if (uid <= 0 || nickname.isBlank()) return
+        appendNickname(uid, nickname.trim())
+    }
+
+    fun cachePendingNickname(uid: Int, nickname: String) {
+        if (nicknameStorage[uid] != null) return
+        logger.debug("Pending nickname stored {} -> {}", uid, nickname)
+        DebugLogWriter.debug(logger, "Pending nickname stored {} -> {}", uid, nickname)
+        pendingNicknameStorage[uid] = nickname
+    }
+
+    fun resetNicknameStorage() {
+        nicknameStorage.clear()
+        pendingNicknameStorage.clear()
+    }
+
+    private fun applyPendingNickname(uid: Int) {
+        if (nicknameStorage[uid] != null) return
+        val pending = pendingNicknameStorage.remove(uid) ?: return
+        appendNickname(uid, pending)
     }
 
     @Synchronized
@@ -75,7 +112,7 @@ class DataStorage {
     }
 
     private fun flushNicknameStorage() {
-        nicknameStorage.clear()
+        resetNicknameStorage()
     }
 
     fun getSkillName(skillCode: Int): String {
@@ -84,6 +121,10 @@ class DataStorage {
 
     fun getBossModeData(): ConcurrentHashMap<Int, ConcurrentSkipListSet<ParsedDamagePacket>> {
         return byTargetStorage
+    }
+
+    fun getActorData(): ConcurrentHashMap<Int, ConcurrentSkipListSet<ParsedDamagePacket>> {
+        return byActorStorage
     }
 
     fun getNickname(): ConcurrentHashMap<Int, String> {

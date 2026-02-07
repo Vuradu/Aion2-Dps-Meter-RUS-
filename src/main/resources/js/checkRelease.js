@@ -1,17 +1,21 @@
 (() => {
-  const API = "https://api.github.com/repos/taengu/Aion2-Dps-Meter/releases/latest";
+  const API = "https://api.github.com/repos/taengu/Aion2-Dps-Meter/releases?per_page=10";
   const URL = "https://github.com/taengu/Aion2-Dps-Meter/releases";
   const START_DELAY = 800,
     RETRY = 500,
     LIMIT = 5;
 
-  const n = (v) => {
-    const [a = 0, b = 0, c = 0] = String(v || "")
-      .trim()
-      .replace(/^v/i, "")
+  const parseVersion = (v) => {
+    const cleaned = String(v || "").trim().replace(/^v/i, "");
+    const [base, prerelease] = cleaned.split("-", 2);
+    const [a = 0, b = 0, c = 0] = String(base || "")
       .split(".")
       .map(Number);
-    return a * 1e6 + b * 1e3 + c;
+    return {
+      base,
+      prerelease: Boolean(prerelease),
+      value: a * 1e6 + b * 1e3 + c,
+    };
   };
 
   let modal;
@@ -44,6 +48,9 @@
       if (!(window.dpsData?.getVersion && window.javaBridge?.openBrowser)) {
         return;
       }
+      if (window.javaBridge?.isRunningViaGradle?.()) {
+        return;
+      }
 
       const current = String(window.dpsData.getVersion() || "").trim();
       const res = await fetch(API, {
@@ -54,8 +61,25 @@
         return;
       }
 
-      const latest = (await res.json()).tag_name;
-      if (latest && n(latest) > n(current)) {
+      const releases = await res.json();
+      const latest = releases.find((release) => {
+        const tag = String(release?.tag_name || "").trim().toLowerCase();
+        if (tag.startsWith("pre")) {
+          return false;
+        }
+        return !release?.draft && !release?.prerelease;
+      })?.tag_name;
+      if (latest) {
+        const latestInfo = parseVersion(latest);
+        const currentInfo = parseVersion(current);
+        const hasUpdate =
+          latestInfo.value > currentInfo.value ||
+          (latestInfo.value === currentInfo.value &&
+            currentInfo.prerelease &&
+            !latestInfo.prerelease);
+        if (!hasUpdate) {
+          return;
+        }
         const fallback = `A new update is available!\n\nCurrent version: v.${current}\nLatest version: v.${latest}\n\nPlease update before continuing.`;
         text.textContent =
           window.i18n?.format?.("update.text", { current, latest }, fallback) || fallback;

@@ -12,7 +12,16 @@
       type="text/css" />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/spoqa-han-sans@3.3.0/css/SpoqaHanSansNeo.min.css" />
+      href="https://unpkg.com/spoqa-han-sans@3.3.0/css/SpoqaHanSansNeo.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/pretendard@1.3.9/dist/web/variable/pretendardvariable.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@fontsource/noto-sans-sc@5.0.19/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@fontsource/noto-sans-tc@5.0.19/index.css" />
     <script src="https://unpkg.com/lucide@latest"></script>
   </head>
 
@@ -22,6 +31,9 @@
         <div class="header">
           <div class="bossIcon">
             <img src="./assets/logo.png" />
+            <div class="bossIconOverlay" aria-hidden="true">
+              <i data-lucide="camera"></i>
+            </div>
           </div>
           <div class="bossNames">
             <span class="bossName"></span>
@@ -30,18 +42,26 @@
           <div class="headerBtns">
             <div class="headerBtn resetBtn"><i data-lucide="rotate-ccw"></i></div>
             <div class="headerBtn settingsBtn"><i data-lucide="settings"></i></div>
-            <button
-              class="headerBtn metricToggleBtn"
-              type="button"
-              data-i18n="header.display.dps"
-              aria-label="Showing DPS">
-              DPS
-            </button>
-            <div class="headerBtn collapseBtn">
-              <i
-                class="collapseIcon"
-                data-lucide="arrow-up-wide-narrow"></i>
-            </div>
+          </div>
+        </div>
+        <div class="footerBtns">
+          <button
+            class="footerBtn targetModeBtn"
+            type="button"
+            aria-label="Target mode">
+            TARGET
+          </button>
+          <button
+            class="footerBtn metricToggleBtn"
+            type="button"
+            data-i18n="header.display.dps"
+            aria-label="Showing DPS">
+            DPS
+          </button>
+          <div class="footerBtn collapseBtn">
+            <i
+              class="collapseIcon"
+              data-lucide="arrow-up-wide-narrow"></i>
           </div>
         </div>
         <div
@@ -49,12 +69,51 @@
           role="dialog"
           aria-modal="true">
           <div class="detailsHeader">
-            <div class="detailsTitle" data-i18n="details.header">Details</div>
-            <div class="tooltip" data-i18n="details.tooltip">
-              Damage over time hits are not included in total crit, double, perfect, back attack, or
-              parry ratios.
+            <div class="detailsTitle">
+              <span class="detailsTitleLabel" data-i18n="details.header">Details</span>
+              <span class="detailsTitleSeparator">for</span>
+              <div class="detailsDropdownWrapper detailsNicknameWrapper">
+                <button class="detailsDropdownBtn detailsNicknameBtn" type="button">
+                  <span class="detailsDropdownText">-</span>
+                  <span class="detailsDropdownCaret" aria-hidden="true">▾</span>
+                </button>
+                <div class="detailsDropdownMenu detailsNicknameMenu" role="menu"></div>
+              </div>
+              <span class="detailsTitleVs">vs</span>
+              <div class="detailsDropdownWrapper detailsTargetWrapper">
+                <button class="detailsDropdownBtn detailsTargetBtn" type="button">
+                  <span class="detailsDropdownText">-</span>
+                  <span class="detailsDropdownCaret" aria-hidden="true">▾</span>
+                </button>
+                <div class="detailsDropdownMenu detailsTargetMenu" role="menu"></div>
+              </div>
+              <span class="detailsTargetSuffix"></span>
+              <div class="detailsTargetSort">
+                <button class="detailsSortBtn" data-sort="recent" type="button" data-i18n="details.sort.recent">
+                  Recent
+                </button>
+                <button class="detailsSortBtn" data-sort="time" type="button" data-i18n="details.sort.time">
+                  Time
+                </button>
+                <button class="detailsSortBtn" data-sort="damage" type="button" data-i18n="details.sort.damage">
+                  Damage
+                </button>
+              </div>
             </div>
             <div class="detailsHeaderControls">
+              <div class="detailsScreenshotWrapper">
+                <button class="detailsScreenshotBtn" type="button" aria-label="Save screenshot to clipboard">
+                  <i data-lucide="camera"></i>
+                </button>
+                <span class="detailsScreenshotNote" aria-live="polite"></span>
+              </div>
+              <button
+                class="detailsRefreshBtn"
+                type="button"
+                aria-label="Refresh details"
+                data-i18n-aria-label="details.refresh.ariaLabel">
+                <i data-lucide="rotate-ccw"></i>
+              </button>
               <div class="detailsSettingsMenuWrapper">
                 <button
                   class="detailsSettingsBtn"
@@ -75,8 +134,118 @@
                         min="0"
                         max="100"
                         step="5"
-                        value="50" />
-                      <span class="detailsOpacityValue">50%</span>
+                        value="80" />
+                      <span class="detailsOpacityValue">80%</span>
+                    </div>
+                    <div class="detailsSettingsLabel" data-i18n="details.fontSize.label">
+                      Font size
+                    </div>
+                    <div class="detailsSettingsControl">
+                      <input
+                        class="detailsFontSizeInput"
+                        type="range"
+                        min="11"
+                        max="20"
+                        step="1"
+                        value="16" />
+                      <span class="detailsFontSizeValue">16px</span>
+                    </div>
+                    <div class="detailsSettingsLabel" data-i18n="details.screenshots.label">
+                      Screenshots
+                    </div>
+                    <label class="detailsSettingsToggle">
+                      <span
+                        class="detailsSettingsToggleLabel"
+                        data-i18n="details.screenshots.includeMeter">
+                        Include main DPS meter
+                      </span>
+                      <span class="detailsSettingsToggleControl">
+                        <input type="checkbox" class="detailsIncludeMeterCheckbox" />
+                        <span class="detailsSettingsToggleTrack" aria-hidden="true"></span>
+                      </span>
+                    </label>
+                    <label class="detailsSettingsToggle">
+                      <span
+                        class="detailsSettingsToggleLabel"
+                        data-i18n="details.screenshots.saveToFolder">
+                        Save screenshots to folder
+                      </span>
+                      <span class="detailsSettingsToggleControl">
+                        <input type="checkbox" class="detailsSaveScreenshotCheckbox" />
+                        <span class="detailsSettingsToggleTrack" aria-hidden="true"></span>
+                      </span>
+                    </label>
+                    <div class="detailsSettingsFolder isHidden">
+                      <div class="detailsSettingsFolderPath">-</div>
+                      <button class="detailsSettingsFolderBtn" type="button">
+                        Select folder
+                      </button>
+                    </div>
+                    <div class="detailsSettingsLabel" data-i18n="details.columns.label">Skill columns</div>
+                    <div class="detailsSettingsColumns">
+                      <label class="detailsSettingsToggle">
+                        <span class="detailsSettingsToggleLabel" data-i18n="details.skills.hits">Hits</span>
+                        <span class="detailsSettingsToggleControl">
+                          <input type="checkbox" class="detailsColumnToggle" data-column="hit" />
+                          <span class="detailsSettingsToggleTrack" aria-hidden="true"></span>
+                        </span>
+                      </label>
+                      <label class="detailsSettingsToggle">
+                        <span class="detailsSettingsToggleLabel" data-i18n="details.skills.multiHit">MHits</span>
+                        <span class="detailsSettingsToggleControl">
+                          <input type="checkbox" class="detailsColumnToggle" data-column="mhit" />
+                          <span class="detailsSettingsToggleTrack" aria-hidden="true"></span>
+                        </span>
+                      </label>
+                      <label class="detailsSettingsToggle">
+                        <span class="detailsSettingsToggleLabel" data-i18n="details.skills.multiHitDamage">MHDmg</span>
+                        <span class="detailsSettingsToggleControl">
+                          <input type="checkbox" class="detailsColumnToggle" data-column="mdmg" />
+                          <span class="detailsSettingsToggleTrack" aria-hidden="true"></span>
+                        </span>
+                      </label>
+                      <label class="detailsSettingsToggle">
+                        <span class="detailsSettingsToggleLabel" data-i18n="details.skills.crit">Crit</span>
+                        <span class="detailsSettingsToggleControl">
+                          <input type="checkbox" class="detailsColumnToggle" data-column="crit" />
+                          <span class="detailsSettingsToggleTrack" aria-hidden="true"></span>
+                        </span>
+                      </label>
+                      <label class="detailsSettingsToggle">
+                        <span class="detailsSettingsToggleLabel" data-i18n="details.skills.parry">Parry</span>
+                        <span class="detailsSettingsToggleControl">
+                          <input type="checkbox" class="detailsColumnToggle" data-column="parry" />
+                          <span class="detailsSettingsToggleTrack" aria-hidden="true"></span>
+                        </span>
+                      </label>
+                      <label class="detailsSettingsToggle">
+                        <span class="detailsSettingsToggleLabel" data-i18n="details.skills.perfect">Perfect</span>
+                        <span class="detailsSettingsToggleControl">
+                          <input type="checkbox" class="detailsColumnToggle" data-column="perfect" />
+                          <span class="detailsSettingsToggleTrack" aria-hidden="true"></span>
+                        </span>
+                      </label>
+                      <label class="detailsSettingsToggle">
+                        <span class="detailsSettingsToggleLabel" data-i18n="details.skills.double">Double</span>
+                        <span class="detailsSettingsToggleControl">
+                          <input type="checkbox" class="detailsColumnToggle" data-column="double" />
+                          <span class="detailsSettingsToggleTrack" aria-hidden="true"></span>
+                        </span>
+                      </label>
+                      <label class="detailsSettingsToggle">
+                        <span class="detailsSettingsToggleLabel" data-i18n="details.skills.back">Back</span>
+                        <span class="detailsSettingsToggleControl">
+                          <input type="checkbox" class="detailsColumnToggle" data-column="back" />
+                          <span class="detailsSettingsToggleTrack" aria-hidden="true"></span>
+                        </span>
+                      </label>
+                      <label class="detailsSettingsToggle">
+                        <span class="detailsSettingsToggleLabel" data-i18n="details.skills.heal">Heal</span>
+                        <span class="detailsSettingsToggleControl">
+                          <input type="checkbox" class="detailsColumnToggle" data-column="heal" />
+                          <span class="detailsSettingsToggleTrack" aria-hidden="true"></span>
+                        </span>
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -90,19 +259,27 @@
 
             <div class="detailsSkills">
               <div class="skillHeader">
-                <div class="cell name" data-i18n="details.skills.skill">Skill</div>
-                <div class="cell center hit" data-i18n="details.skills.hits">Hits</div>
-                <div class="cell center crit" data-i18n="details.skills.crit">Crit</div>
-                <div class="cell center parry" data-i18n="details.skills.parry">Parry</div>
-                <div class="cell center perfect" data-i18n="details.skills.perfect">Perfect</div>
-                <div class="cell center double" data-i18n="details.skills.double">Double</div>
-                <div class="cell center back" data-i18n="details.skills.back">Back</div>
-                <div class="cell dmg" data-i18n="details.skills.totalDamage">Total Damage</div>
+                <div class="cell name" data-sort-key="name" data-i18n="details.skills.skill">Skill</div>
+                <div class="cell center hit" data-sort-key="hit" data-i18n="details.skills.hits">Hits</div>
+                <div class="cell center mhit" data-sort-key="mhit" data-i18n="details.skills.multiHit">MHits</div>
+                <div class="cell center mdmg" data-sort-key="mdmg" data-i18n="details.skills.multiHitDamage">MHDmg</div>
+                <div class="cell center crit" data-sort-key="crit" data-i18n="details.skills.crit">Crit</div>
+                <div class="cell center parry" data-sort-key="parry" data-i18n="details.skills.parry">Parry</div>
+                <div class="cell center perfect" data-sort-key="perfect" data-i18n="details.skills.perfect">Perfect</div>
+                <div class="cell center double" data-sort-key="double" data-i18n="details.skills.double">Double</div>
+                <div class="cell center back" data-sort-key="back" data-i18n="details.skills.back">Back</div>
+                <div class="cell center heal" data-sort-key="heal" data-i18n="details.skills.heal">Heal</div>
+                <div class="cell dmg" data-sort-key="dmg" data-i18n="details.skills.totalDamage">Total Damage</div>
               </div>
 
               <div class="skills"></div>
+              <div class="detailsFootnote" data-i18n="details.tooltip">
+                Damage over time hits are not included in total crit, double, perfect, back attack,
+                or parry ratios.
+              </div>
             </div>
           </div>
+          <div class="detailsResizeHandle" aria-hidden="true"></div>
         </div>
         <div
           class="settingsPanel"
@@ -113,6 +290,124 @@
             <div class="closeX settingsClose">×</div>
           </div>
           <div class="settingsBody">
+            <div class="settingsRow settingsRowInput">
+              <label
+                class="settingsLabel"
+                for="characterNameInput"
+                data-i18n="settings.characterName">
+                Name#ID
+              </label>
+              <div class="settingsCharacterIdentity">
+                <input
+                  id="characterNameInput"
+                  class="characterNameInput"
+                  readonly
+                  placeholder="Enter your character name"
+                  data-i18n-placeholder="settings.characterNamePlaceholder" />
+                <div class="settingsActorInline">
+                  <span class="settingsActorPrefix">#</span>
+                  <input
+                    id="localActorIdInput"
+                    class="localActorIdInput"
+                    inputmode="numeric"
+                    placeholder="1234" />
+                </div>
+              </div>
+            </div>
+            <div class="settingsRow settingsRowSelect">
+              <div class="settingsInfo">
+                <div class="settingsLabel" data-i18n="settings.language.label">Language</div>
+              </div>
+              <div class="settingsDropdownWrapper languageDropdownWrapper">
+                <button class="settingsDropdownBtn languageDropdownBtn" type="button">
+                  <span class="settingsDropdownText">-</span>
+                  <span class="settingsDropdownCaret" aria-hidden="true">▾</span>
+                </button>
+                <div class="settingsDropdownMenu languageDropdownMenu" role="menu"></div>
+              </div>
+            </div>
+            <div class="settingsRow settingsRowSelect">
+              <div class="settingsInfo">
+                <div class="settingsLabel" data-i18n="settings.theme.label">Theme</div>
+              </div>
+              <div class="settingsDropdownWrapper themeDropdownWrapper">
+                <button class="settingsDropdownBtn themeDropdownBtn" type="button">
+                  <span class="settingsDropdownText">-</span>
+                  <span class="settingsDropdownCaret" aria-hidden="true">▾</span>
+                </button>
+                <div class="settingsDropdownMenu themeDropdownMenu" role="menu"></div>
+              </div>
+            </div>
+            <div class="settingsRow settingsRowInput">
+              <div class="settingsInfo">
+                <div class="settingsLabel" data-i18n="settings.meterOpacity.label">Meter opacity</div>
+              </div>
+              <div class="settingsRangeStack">
+                <input
+                  class="settingsRange meterOpacityInput"
+                  type="range"
+                  min="10"
+                  max="100"
+                  step="5"
+                  value="80" />
+                <div class="settingsValue meterOpacityValue">80%</div>
+              </div>
+            </div>
+            <div class="settingsDivider"></div>
+            <div class="settingsMiniTitle" data-i18n="settings.meterSettings">Meter Settings</div>
+            <div>
+              <label class="settingsToggle">
+                <span class="settingsToggleLabel" data-i18n="settings.pinMeToTop">
+                  Always show me at the top
+                </span>
+                <span class="settingsToggleControl">
+                  <input type="checkbox" class="pinMeToTopCheckbox" />
+                  <span class="settingsToggleTrack" aria-hidden="true"></span>
+                </span>
+              </label>
+            </div>
+            <div class="settingsRow settingsRowSelect">
+              <div class="settingsInfo">
+                <div class="settingsLabel" data-i18n="settings.targetWindow.label">
+                  Target time range
+                </div>
+              </div>
+              <div class="settingsDropdownWrapper targetWindowDropdownWrapper">
+                <button class="settingsDropdownBtn targetWindowDropdownBtn" type="button">
+                  <span class="settingsDropdownText">-</span>
+                  <span class="settingsDropdownCaret" aria-hidden="true">▾</span>
+                </button>
+                <div class="settingsDropdownMenu targetWindowDropdownMenu" role="menu"></div>
+              </div>
+            </div>
+            <div class="settingsRow settingsRowSelect">
+              <div class="settingsInfo">
+                <div class="settingsLabel" data-i18n="settings.allTargetsWindow.label">
+                  All Targets time range
+                </div>
+              </div>
+              <div class="settingsDropdownWrapper allTargetsWindowDropdownWrapper">
+                <button class="settingsDropdownBtn allTargetsWindowDropdownBtn" type="button">
+                  <span class="settingsDropdownText">-</span>
+                  <span class="settingsDropdownCaret" aria-hidden="true">▾</span>
+                </button>
+                <div class="settingsDropdownMenu allTargetsWindowDropdownMenu" role="menu"></div>
+              </div>
+            </div>
+            <div class="settingsRow settingsRowSelect">
+              <div class="settingsInfo">
+                <div class="settingsLabel" data-i18n="settings.trainingMode.label">
+                  Training Mode target
+                </div>
+              </div>
+              <div class="settingsDropdownWrapper trainSelectionModeDropdownWrapper">
+                <button class="settingsDropdownBtn trainSelectionModeDropdownBtn" type="button">
+                  <span class="settingsDropdownText">-</span>
+                  <span class="settingsDropdownCaret" aria-hidden="true">▾</span>
+                </button>
+                <div class="settingsDropdownMenu trainSelectionModeDropdownMenu" role="menu"></div>
+              </div>
+            </div>
             <div class="settingsRow">
               <div class="settingsInfo">
                 <div class="settingsLabel" data-i18n="settings.lockedPort">Detected device/port</div>
@@ -122,77 +417,65 @@
                 </div>
               </div>
               <button class="settingsAction resetDetectBtn" data-i18n="settings.resetDetection">
-                Reset detection
+                Reset
               </button>
             </div>
-            <div class="settingsRow settingsRowInput">
-              <label
-                class="settingsLabel"
-                for="characterNameInput"
-                data-i18n="settings.characterName">
-                Character name
-              </label>
-              <input
-                id="characterNameInput"
-                class="characterNameInput"
-                placeholder="Enter your character name"
-                data-i18n-placeholder="settings.characterNamePlaceholder" />
-            </div>
-            <label class="settingsCheckbox">
-              <input
-                type="checkbox"
-                class="onlyMeCheckbox" />
-              <span data-i18n="settings.onlyMe">Only show my character</span>
-            </label>
-            <div class="settingsRow settingsRowSelect">
-              <div class="settingsInfo">
-                <div class="settingsLabel" data-i18n="settings.language.label">Language</div>
-              </div>
-              <select class="settingsSelect languageSelect">
-                <option value="en">English</option>
-                <option value="ko">한국어</option>
-                <option value="zh-Hant">繁體中文</option>
-                <option value="zh-Hans">简体中文</option>
-              </select>
-            </div>
-            <div class="settingsRow settingsRowSelect">
-              <div class="settingsInfo">
-                <div class="settingsLabel" data-i18n="settings.targetSelection.label">
-                  Target selection (experimental)
-                </div>
-              </div>
-              <select class="settingsSelect targetSelect">
-                <option value="mostDamage" data-i18n="settings.targetSelection.options.mostDamage">
-                  Most damage (current)
-                </option>
-                <option value="mostRecent" data-i18n="settings.targetSelection.options.mostRecent">
-                  Most recently damaged
-                </option>
-                <option value="allTargets" data-i18n="settings.targetSelection.options.allTargets">
-                  All targets combined
-                </option>
-              </select>
-              </div>
             <div>
-              <label class="settingsCheckbox">
-                <input
-                        type="checkbox"
-                        class="debugLoggingCheckbox" />
-                <span data-i18n="settings.debugLogging">Enable debug logging</span>
+              <label class="settingsToggle">
+                <span class="settingsToggleLabel" data-i18n="settings.debugLogging">
+                  Enable debug logging
+                </span>
+                <span class="settingsToggleControl">
+                  <input type="checkbox" class="debugLoggingCheckbox" />
+                  <span class="settingsToggleTrack" aria-hidden="true"></span>
+                </span>
               </label>
             </div>
-            <button class="discordButton" data-i18n="settings.discord">
-              💬 Get support on our Discord
-            </button>
-            <button class="quitButton" data-i18n="settings.quit">Quit</button>
+            <div class="settingsSupportRow">
+              <button class="discordButton" type="button">
+                <span data-i18n="settings.discord">Find us on Discord</span>
+                <span class="discordIcon" aria-hidden="true">
+                  <svg
+                    viewBox="0 0 24 24"
+                    role="img"
+                    focusable="false"
+                    aria-hidden="true">
+                    <path
+                      d="M19.75 4.94A19.87 19.87 0 0 0 15.32 3a13.4 13.4 0 0 0-.64 1.3 18.5 18.5 0 0 0-5.35 0A13.4 13.4 0 0 0 8.68 3a19.9 19.9 0 0 0-4.43 1.94C2.2 8.17 1.7 11.29 1.95 14.37A19.7 19.7 0 0 0 7 17.04c.42-.57.8-1.18 1.13-1.82-.62-.23-1.2-.52-1.75-.85.15-.1.3-.2.45-.3 3.38 1.56 7.05 1.56 10.42 0 .15.1.3.2.45.3-.54.33-1.13.62-1.75.85.33.64.71 1.25 1.13 1.82a19.7 19.7 0 0 0 5.04-2.67c.34-3.68-.55-6.77-2.37-9.31ZM8.9 12.9c-.77 0-1.4-.71-1.4-1.58 0-.87.62-1.58 1.4-1.58.78 0 1.4.7 1.4 1.58 0 .87-.62 1.58-1.4 1.58Zm6.2 0c-.77 0-1.4-.71-1.4-1.58 0-.87.62-1.58 1.4-1.58.78 0 1.4.7 1.4 1.58 0 .87-.62 1.58-1.4 1.58Z" />
+                  </svg>
+                </span>
+              </button>
+              <button class="quitButton" data-i18n="settings.quit">Quit</button>
+            </div>
+            <div class="kofiWidget">
+              <button class="kofiButton" type="button">
+                <img
+                  height="36"
+                  style="border:0px;height:36px;"
+                  src="https://storage.ko-fi.com/cdn/kofi3.png"
+                  border="0"
+                  alt="Buy Me a Coffee at ko-fi.com" />
+              </button>
+            </div>
+            <div class="settingsFooter">
+              <span class="settingsFooterLabel" data-i18n="settings.version">Version</span>
+              <button
+                class="settingsFooterValue settingsVersionLink"
+                type="button">
+                <span class="settingsVersionValue">-</span>
+              </button>
+            </div>
           </div>
         </div>
         <div class="list"></div>
         <div class="battleTime">
           <div class="status"></div>
           <div class="tick"></div>
-          <div class="analysisStatus" data-i18n="battleTime.analysing">Analysing data...</div>
+          <div class="analysisStatus" data-i18n="battleTime.analysing">
+            Monitoring data...
+          </div>
         </div>
+        <div class="resizeHandle" aria-hidden="true"></div>
       </div>
       <div
         class="console"

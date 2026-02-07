@@ -1,6 +1,10 @@
-# AION2meter-TW
+# AION2 DPS Meter
 
-A combat analysis (DPS meter) tool for **AION 2**. Lovingly forked from [Aion2-Dps-Meter](https://github.com/TK-open-public/Aion2-Dps-Meter)
+A combat analysis (DPS meter) tool for **AION 2**, Taiwan or Korea servers.
+
+Our goal is to make a community tool that doesn't rely on methods that might intefere with the game in ways that break the terms of service. This tool is offered **for free**, [ready to install.](#how-to-install)
+
+If you'd like to get involved, you can reach us on Discord from the link below!
 
 🔗 **GitHub Repository:** https://github.com/taengu/Aion2-Dps-Meter  
 💬 **Discord (Support & Community): https://discord.gg/Aion2Global**
@@ -9,13 +13,14 @@ A combat analysis (DPS meter) tool for **AION 2**. Lovingly forked from [Aion2-D
 [![GitHub Issues](https://img.shields.io/github/issues/taengu/Aion2-Dps-Meter)](https://github.com/taengu/Aion2-Dps-Meter/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/taengu/Aion2-Dps-Meter)](https://github.com/taengu/Aion2-Dps-Meter/pulls)
 
-
+Lovingly forked from [Aion2-Dps-Meter](https://github.com/TK-open-public/Aion2-Dps-Meter)
+ 
 > **Important Notice**  
 > This project will be **paused or made private** if requested by the game operator, if packet encryption or other countermeasures are introduced, or if there is an official statement prohibiting its use.
 
 ---
 
-## Usage
+## How to Install
 
 1. Install **Npcap**:  
    https://npcap.com/#download  
@@ -28,7 +33,9 @@ A combat analysis (DPS meter) tool for **AION 2**. Lovingly forked from [Aion2-D
 
 4. Run `aion2meter-tw.exe` **as Administrator** *(installs to C:\Program Files\aion2meter-tw by default)*
 
-5. If the UI appears, the application has started successfully.
+5. **Allow Windows Firewall** prompt when you first open the app.
+   - Preferably, expand the menu and tick Private and Public.
+   - This helps ensure data isn't being missed
 
 6. If the DPS meter does not appear:
    - Teleport using a **Kisk**, **Hideout**, or enter/exit a dungeon
@@ -42,8 +49,12 @@ A combat analysis (DPS meter) tool for **AION 2**. Lovingly forked from [Aion2-D
 
 ## UI Explanation
 
+<img width="439" height="288" alt="image" src="https://github.com/user-attachments/assets/eae5dfd9-25c1-4e38-821f-6af0012acc93" />
+
+
 - **Blue box** – Monster name display (planned)
 - **Brown box** – Reset current combat data
+- **Yellow box** - Toggle between showing DPS or total DMG
 - **Pink box** – Expand / collapse DPS meter
 - **Red box** – Class icon (shown when detected)
 - **Orange box** – Player nickname (click for details)
@@ -53,6 +64,7 @@ A combat analysis (DPS meter) tool for **AION 2**. Lovingly forked from [Aion2-D
   - Green: in combat  
   - Yellow: no damage detected (paused)  
   - Grey: combat ended
+- **Black box** - ID placeholder, when player name is still being searched for
 
 Clicking a player row opens detailed statistics.
 
@@ -70,6 +82,11 @@ git clone https://github.com/taengu/Aion2-Dps-Meter.git
 # Enter the directory
 cd Aion2-Dps-Meter
 
+# Run in IntelliJ Terminal (keeps output in the same window)
+# If IntelliJ starts a separate cmd window, enable "Run in terminal" under
+# Settings > Build, Execution, Deployment > Gradle.
+./gradlew run
+
 # Build the distribution (Windows)
 ./gradlew packageDistributionForCurrentOS
 ```
@@ -84,6 +101,10 @@ cd Aion2-Dps-Meter
 - The original was written for KR servers and uses a hard-coded method for finding game packets.
 - This version adds auto-detection and support for VPNs/Ping Reducers. It also has been translated to English skills/spells and UI.
 
+**Q: All names/my name shows as numbers?**
+- Name detection can take a little time to work due to the game not sending names that often
+- You can use a teleport scroll or teleport to Legion to try and get it to detect your name faster
+- To save on teleports, if you use Exitlag, enable "Shortcut to restart all connections" option and use it to reload the game and populate names faster.
 
 **Q: The UI appears, but no damage is shown.**  
 - Verify Npcap installation  
@@ -120,5 +141,10 @@ Use at your own risk.
 ## Community & Support
 
 - 💬 **Join our Discord:** https://discord.gg/Aion2Global
-- ☕ [Buy me a Coffee](https://ko-fi.com/hiddencube)
-- 🎁 [Donate with Crypto](https://nowpayments.io/donation/thehiddencube)
+- **Say thanks and fund new cool projects & features!**
+  - ☕ [Buy me a Coffee](https://ko-fi.com/hiddencube)
+  - 🅿️ [Send with PayPal](https://www.paypal.me/taengoo)
+  - 🎁 [Donate with Crypto](https://nowpayments.io/donation/thehiddencube)
+  - **BTC**: `1GexKhgVZPYRqpfCKydXLoNUXRRRUoAUwT`
+  - **ETH**: `0x38F0bc371A563A24eCa6034cFf77eB6173c7e3e7`
+  - **USDC**: `0xA9571Fc95666350f6DFFB8Fb80ee27eE7db46b56`

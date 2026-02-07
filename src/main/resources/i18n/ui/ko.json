@@ -16,6 +16,27 @@
       "ariaLabel": "상세 설정 열기"
     },
     "panelBackground": "패널 배경",
+    "fontSize": {
+      "label": "글자 크기"
+    },
+    "screenshots": {
+      "label": "스크린샷",
+      "includeMeter": "메인 DPS 미터 포함",
+      "saveToFolder": "스크린샷을 폴더에 저장"
+    },
+    "columns": {
+      "label": "스킬 열"
+    },
+    "screenshot": {
+      "ariaLabel": "클립보드에 스크린샷 저장",
+      "captured": "스크린샷 캡처됨",
+      "savedToClipboard": "클립보드에 저장됨"
+    },
+    "sort": {
+      "recent": "최근",
+      "time": "시간",
+      "damage": "피해"
+    },
     "skills": {
       "skill": "스킬",
       "hits": "타수",
@@ -24,7 +45,10 @@
       "perfect": "퍼펙트",
       "double": "더블",
       "back": "백",
-      "totalDamage": "총 피해"
+      "multiHit": "다중타",
+      "multiHitDamage": "다중타 피해",
+      "totalDamage": "총 피해",
+      "heal": "치유"
     },
     "stats": {
       "totalDamage": "총 피해",
@@ -34,33 +58,91 @@
       "doubleRate": "더블율",
       "backRate": "백어택율",
       "parryRate": "패리율",
-      "combatTime": "전투 시간"
-    }
+      "combatTime": "전투 시간",
+      "multiHitDamage": "다중타 피해",
+      "multiHitHits": "다중타"
+    },
+    "titleFor": "대상",
+    "titleVs": "vs",
+    "all": "전체"
   },
   "settings": {
     "title": "설정",
     "lockedPort": "감지된 장치/포트",
     "resetDetection": "감지 초기화",
-    "characterName": "캐릭터 이름",
+    "characterName": "Name#ID",
     "characterNamePlaceholder": "캐릭터 이름 입력",
-    "onlyMe": "내 캐릭터만 표시",
+    "pinMeToTop": "내 캐릭터를 맨 위에 고정",
     "debugLogging": "디버그 로그 활성화",
     "quit": "종료",
-    "discord": "💬 디스코드에서 지원 받기",
+    "discord": "디스코드에서 만나요",
+    "version": "버전",
+    "theme": {
+      "label": "테마",
+      "options": {
+        "aion2": "AION2",
+        "asmodian": "아스모디안",
+        "cogni": "코그니",
+        "elyos": "엘리오스",
+        "ember": "엠버",
+        "fera": "페라",
+        "frost": "프로스트",
+        "natura": "나투라",
+        "obsidian": "옵시디언",
+        "varian": "바리안"
+      }
+    },
     "language": {
       "label": "언어"
+    },
+    "meterOpacity": {
+      "label": "미터 불투명도"
+    },
+    "targetWindow": {
+      "label": "대상 시간 범위",
+      "options": {
+        "5s": "5초",
+        "10s": "10초",
+        "15s": "15초",
+        "20s": "20초",
+        "30s": "30초"
+      }
     },
     "targetSelection": {
       "label": "대상 선택 (실험적)",
       "options": {
         "mostDamage": "가장 큰 피해(현재)",
         "mostRecent": "최근 피해 대상",
+        "lastHitByMe": "내가 최근에 공격한 대상",
         "allTargets": "모든 대상 합산"
+      }
+    },
+    "allTargetsWindow": {
+      "label": "모든 대상 집계 시간",
+      "options": {
+        "30s": "30초",
+        "1m": "1분",
+        "2m": "2분",
+        "3m": "3분",
+        "5m": "5분"
+      }
+    },
+    "meterSettings": "미터 설정",
+    "trainingMode": {
+      "label": "훈련 모드",
+      "options": {
+        "all": "전체",
+        "highestDamage": "최대 피해"
       }
     }
   },
   "battleTime": {
-    "analysing": "데이터 분석 중..."
+    "analysing": "데이터 모니터링 중...",
+    "idle": "대기 중",
+    "notRunning": "AION2 not running"
+  },
+  "meter": {
+    "identifyingPlayer": "플레이어 #{id}"
   },
   "skills": {
     "fallback": "스킬 {code}",
@@ -73,9 +155,12 @@
   },
   "connection": {
     "auto": "자동",
+    "detecting": "Detecting AION2 connection...",
     "loopback": "로컬 루프백"
   },
   "target": {
-    "all": "모든 대상"
+    "all": "모든 대상",
+    "identifying": "사용자를 식별하는 중...",
+    "train": "훈련용 허수아비"
   }
 }
