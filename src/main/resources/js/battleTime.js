@@ -7,7 +7,6 @@ const createBattleTimeUI = ({
   getAnalysisText,
   graceMs,
   graceArmMs,
-  idleMs = 60000,
   visibleClass,
 } = {}) => {
   if (!rootEl) return null;
@@ -35,14 +34,13 @@ const createBattleTimeUI = ({
   };
 
   const setState = (state) => {
-    rootEl.classList.remove("state-fighting", "state-grace", "state-ended", "state-idle");
+    rootEl.classList.remove("state-fighting", "state-grace", "state-ended");
     if (state) rootEl.classList.add(state);
     currentState = state || "";
 
     if (statusEl) statusEl.dataset.state = state || "";
     if (analysisEl) {
-      const shouldShow =
-        state === "state-grace" || state === "state-ended" || state === "state-idle";
+      const shouldShow = state === "state-grace" || state === "state-ended";
       analysisEl.style.display = shouldShow ? "" : "none";
       if (shouldShow) {
         const text = analysisTextProvider ? analysisTextProvider() : "Analysing data...";
@@ -91,8 +89,7 @@ const createBattleTimeUI = ({
 
     const frozenMs = Math.max(0, now - lastChangedAt);
 
-    if (frozenMs >= idleMs) setState("state-idle");
-    else if (frozenMs >= graceMs) setState("state-ended");
+    if (frozenMs >= graceMs) setState("state-ended");
     else if (frozenMs >= graceArmMs) setState("state-grace");
     else setState("state-fighting");
   };
@@ -101,8 +98,7 @@ const createBattleTimeUI = ({
     if (lastBattleTimeMs === null) return;
 
     const frozenMs = Math.max(0, now - lastChangedAt);
-    if (frozenMs >= idleMs) setState("state-idle");
-    else if (frozenMs >= graceMs) setState("state-ended");
+    if (frozenMs >= graceMs) setState("state-ended");
     else if (frozenMs >= graceArmMs) setState("state-grace");
     else setState("state-fighting");
   };
@@ -115,10 +111,7 @@ const createBattleTimeUI = ({
   const setAnalysisTextProvider = (provider) => {
     analysisTextProvider = provider;
     if (analysisEl) {
-      const shouldShow =
-        currentState === "state-grace" ||
-        currentState === "state-ended" ||
-        currentState === "state-idle";
+      const shouldShow = currentState === "state-grace" || currentState === "state-ended";
       if (shouldShow) {
         const text = analysisTextProvider ? analysisTextProvider() : "Analysing data...";
         analysisEl.textContent = text;

@@ -16,27 +16,6 @@
       "ariaLabel": "開啟詳細設定"
     },
     "panelBackground": "面板背景",
-    "fontSize": {
-      "label": "字體大小"
-    },
-    "screenshots": {
-      "label": "螢幕截圖",
-      "includeMeter": "包含主 DPS 計量器",
-      "saveToFolder": "將截圖儲存到資料夾"
-    },
-    "columns": {
-      "label": "技能欄位"
-    },
-    "screenshot": {
-      "ariaLabel": "將截圖儲存到剪貼簿",
-      "captured": "已擷取截圖",
-      "savedToClipboard": "已儲存到剪貼簿"
-    },
-    "sort": {
-      "recent": "最近",
-      "time": "時間",
-      "damage": "傷害"
-    },
     "skills": {
       "skill": "技能",
       "hits": "命中",
@@ -45,10 +24,7 @@
       "perfect": "完美",
       "double": "雙重",
       "back": "背擊",
-      "multiHit": "多段打擊",
-      "multiHitDamage": "額外傷害",
-      "totalDamage": "總傷害",
-      "heal": "治療"
+      "totalDamage": "總傷害"
     },
     "stats": {
       "totalDamage": "總傷害",
@@ -58,91 +34,33 @@
       "doubleRate": "雙重率",
       "backRate": "背擊率",
       "parryRate": "格擋率",
-      "combatTime": "戰鬥時間",
-      "multiHitDamage": "額外傷害",
-      "multiHitHits": "多段打擊"
-    },
-    "titleFor": "針對",
-    "titleVs": "vs",
-    "all": "全部"
+      "combatTime": "戰鬥時間"
+    }
   },
   "settings": {
     "title": "設定",
     "lockedPort": "偵測到的裝置/連接埠",
     "resetDetection": "重置偵測",
-    "characterName": "Name#ID",
+    "characterName": "角色名稱",
     "characterNamePlaceholder": "輸入你的角色名稱",
-    "pinMeToTop": "將我置頂",
+    "onlyMe": "只顯示我的角色",
     "debugLogging": "啟用除錯記錄",
     "quit": "結束",
-    "discord": "在 Discord 找到我們",
-    "version": "版本",
-    "theme": {
-      "label": "主題",
-      "options": {
-        "aion2": "AION2",
-        "asmodian": "魔族",
-        "cogni": "認知",
-        "elyos": "天族",
-        "ember": "餘燼",
-        "fera": "菲拉",
-        "frost": "霜寒",
-        "natura": "自然",
-        "obsidian": "黑曜",
-        "varian": "瓦里安"
-      }
-    },
+    "discord": "💬 在 Discord 取得支援",
     "language": {
       "label": "語言"
-    },
-    "meterOpacity": {
-      "label": "水錶不透明度"
-    },
-    "targetWindow": {
-      "label": "目標時間範圍",
-      "options": {
-        "5s": "5秒",
-        "10s": "10秒",
-        "15s": "15秒",
-        "20s": "20秒",
-        "30s": "30秒"
-      }
     },
     "targetSelection": {
       "label": "目標選擇（實驗性）",
       "options": {
         "mostDamage": "最高傷害（目前）",
         "mostRecent": "最近受傷目標",
-        "lastHitByMe": "我最近攻擊的目標",
         "allTargets": "所有目標合計"
-      }
-    },
-    "allTargetsWindow": {
-      "label": "所有目標時間窗",
-      "options": {
-        "30s": "30秒",
-        "1m": "1分鐘",
-        "2m": "2分鐘",
-        "3m": "3分鐘",
-        "5m": "5分鐘"
-      }
-    },
-    "meterSettings": "計量設定",
-    "trainingMode": {
-      "label": "訓練模式",
-      "options": {
-        "all": "全部",
-        "highestDamage": "最高傷害"
       }
     }
   },
   "battleTime": {
-    "analysing": "正在監控資料...",
-    "idle": "閒置",
-    "notRunning": "AION2 not running"
-  },
-  "meter": {
-    "identifyingPlayer": "玩家 #{id}"
+    "analysing": "分析資料中..."
   },
   "skills": {
     "fallback": "技能 {code}",
@@ -155,12 +73,9 @@
   },
   "connection": {
     "auto": "自動",
-    "detecting": "Detecting AION2 connection...",
     "loopback": "本地回環"
   },
   "target": {
-    "all": "所有目標",
-    "identifying": "正在識別你...",
-    "train": "訓練用稻草人"
+    "all": "所有目標"
   }
 }

@@ -16,27 +16,6 @@
       "ariaLabel": "Open details settings"
     },
     "panelBackground": "Panel background",
-    "fontSize": {
-      "label": "Font size"
-    },
-    "screenshots": {
-      "label": "Screenshots",
-      "includeMeter": "Include main DPS meter",
-      "saveToFolder": "Save screenshots to folder"
-    },
-    "columns": {
-      "label": "Skill columns"
-    },
-    "screenshot": {
-      "ariaLabel": "Save screenshot to clipboard",
-      "captured": "Captured Screenshot",
-      "savedToClipboard": "Saved to clipboard"
-    },
-    "sort": {
-      "recent": "Recent",
-      "time": "Time",
-      "damage": "Damage"
-    },
     "skills": {
       "skill": "Skill",
       "hits": "Hits",
@@ -45,106 +24,43 @@
       "perfect": "Perfect",
       "double": "Double",
       "back": "Back",
-      "multiHit": "MHits",
-      "multiHitDamage": "MHDmg",
-      "totalDamage": "Total Damage",
-      "heal": "Heal"
+      "totalDamage": "Total Damage"
     },
     "stats": {
       "totalDamage": "Total Damage",
       "contribution": "Contribution",
-      "hits": "Hits",
       "critRate": "Crit Rate",
       "perfectRate": "Perfect Rate",
       "doubleRate": "Double Rate",
       "backRate": "Back Attack Rate",
       "parryRate": "Parry Rate",
-      "combatTime": "Combat Time",
-      "selfHealing": "Self-Healing",
-      "multiHitDamage": "Multi-Hit Damage",
-      "multiHitHits": "Multi-Hits"
-    },
-    "titleFor": "for",
-    "titleVs": "vs",
-    "all": "All"
+      "combatTime": "Combat Time"
+    }
   },
   "settings": {
     "title": "Settings",
     "lockedPort": "Detected device/port",
-    "resetDetection": "Reset",
-    "characterName": "Name#ID",
+    "resetDetection": "Reset detection",
+    "characterName": "Character name",
     "characterNamePlaceholder": "Enter your character name",
-    "pinMeToTop": "Always show me at the top",
+    "onlyMe": "Only show my character",
     "debugLogging": "Enable debug logging",
     "quit": "Quit",
-    "discord": "Find us on Discord",
-    "version": "Version",
-    "theme": {
-      "label": "Theme",
-      "options": {
-        "aion2": "AION2",
-        "asmodian": "Asmodian",
-        "cogni": "Cogni",
-        "elyos": "Elyos",
-        "ember": "Ember",
-        "fera": "Fera",
-        "frost": "Frost",
-        "natura": "Natura",
-        "obsidian": "Obsidian",
-        "varian": "Varian"
-      }
-    },
+    "discord": "💬 Get support on our Discord",
     "language": {
       "label": "Language"
-    },
-    "meterOpacity": {
-      "label": "Meter opacity"
-    },
-    "targetWindow": {
-      "label": "Target time range",
-      "options": {
-        "5s": "5 seconds",
-        "10s": "10 seconds",
-        "15s": "15 seconds",
-        "20s": "20 seconds",
-        "30s": "30 seconds"
-      }
     },
     "targetSelection": {
       "label": "Target selection (experimental)",
       "options": {
         "mostDamage": "Most damage (current)",
         "mostRecent": "Most recently damaged",
-        "lastHitByMe": "Last hit by me",
         "allTargets": "All targets combined"
-      }
-    },
-    "allTargetsWindow": {
-      "label": "All Targets time range",
-      "options": {
-        "30s": "30 seconds",
-        "1m": "1 minute",
-        "2m": "2 minutes",
-        "3m": "3 minutes",
-        "5m": "5 minutes"
-      }
-    },
-    "meterSettings": "Meter Settings",
-    "trainingMode": {
-      "label": "Training Mode target",
-      "options": {
-        "all": "All",
-        "highestDamage": "Highest Damage"
       }
     }
   },
   "battleTime": {
-    "analysing": "Monitoring data...",
-    "idle": "Idle",
-    "notRunning": "AION2 not running"
-  },
-  "meter": {
-    "identifyingPlayer": "Player #{id}"
+    "analysing": "Analysing data..."
   },
   "skills": {
     "fallback": "Skill {code}",
@@ -157,12 +73,9 @@
   },
   "connection": {
     "auto": "Auto",
-    "detecting": "Detecting AION2 connection...",
     "loopback": "Local Loopback"
   },
   "target": {
-    "all": "All Targets",
-    "identifying": "Identifying you...",
-    "train": "Training Scarecrow"
+    "all": "All targets"
   }
 }

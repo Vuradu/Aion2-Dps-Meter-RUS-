@@ -8,8 +8,7 @@ class StreamAssembler(private val processor: StreamProcessor) {
 
     private val MAGIC_PACKET = byteArrayOf(0x06.toByte(), 0x00.toByte(), 0x36.toByte())
 
-    suspend fun processChunk(chunk: ByteArray): Boolean {
-        var parsed = false
+    suspend fun processChunk(chunk: ByteArray) {
         buffer.append(chunk)
 
         while (true) {
@@ -20,13 +19,10 @@ class StreamAssembler(private val processor: StreamProcessor) {
             val fullPacket = buffer.getRange(0, cutPoint)
 
             if (fullPacket.isNotEmpty()) {
-                parsed = processor.onPacketReceived(fullPacket) || parsed
+                processor.onPacketReceived(fullPacket)
             }
 
             buffer.discardBytes(cutPoint)
         }
-        return parsed
     }
-
-    fun bufferedBytes(): Int = buffer.size()
 }

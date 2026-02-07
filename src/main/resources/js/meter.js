@@ -1,14 +1,5 @@
-const createMeterUI = ({
-  elList,
-  dpsFormatter,
-  getUserName,
-  onClickUserRow,
-  getMetric,
-  getSortDirection,
-  getPinUserToTop,
-}) => {
+const createMeterUI = ({ elList, dpsFormatter, getUserName, onClickUserRow, getMetric }) => {
   const MAX_CACHE = 32;
-  const cjkRegex = /[\u3400-\u9FFF\uF900-\uFAFF]/;
 
   const rowViewById = new Map();
   let lastVisibleIds = new Set();
@@ -95,10 +86,6 @@ const createMeterUI = ({
     const user = sortedAll.find((x) => x.isUser);
 
     if (!user) return top6;
-    const pinUser = typeof getPinUserToTop === "function" && getPinUserToTop();
-    if (pinUser) {
-      return [user, ...top6.filter((row) => !row.isUser)];
-    }
     if (top6.some((x) => x.isUser)) return top6;
     return [...top6, user];
   };
@@ -144,7 +131,6 @@ const createMeterUI = ({
       const metricValue = Number(resolveMetric(row)?.value) || 0;
       topMetric = Math.max(topMetric, metricValue);
     }
-    const visibleTotalDamage = rows.reduce((sum, row) => sum + (Number(row?.totalDamage) || 0), 0);
 
     for (const row of rows) {
       if (!row) {
@@ -164,15 +150,8 @@ const createMeterUI = ({
 
       view.rowEl.style.display = "";
       view.rowEl.classList.toggle("isUser", !!row.isUser);
-      view.rowEl.classList.toggle("isIdentifying", !!row.isIdentifying);
 
-      const rowId = row.id ?? row.name ?? "";
-      const nameText = row.isIdentifying
-        ? window.i18n?.format?.("meter.identifyingPlayer", { id: rowId }, `Player #${rowId}`) ??
-          `Player #${rowId}`
-        : row.name ?? "";
-      view.nameEl.textContent = nameText;
-      view.nameEl.classList.toggle("isCjk", cjkRegex.test(nameText));
+      view.nameEl.textContent = row.name ?? "";
       if (row.job && !!row.job) {
         const src = `./assets/${row.job}.png`;
         view.classIconImg.src = src;
@@ -185,8 +164,7 @@ const createMeterUI = ({
 
       const metric = resolveMetric(row) || { value: 0, text: "-" };
       const metricValue = Number(metric.value) || 0;
-      const damageContribution =
-        visibleTotalDamage > 0 ? (Number(row.totalDamage) / visibleTotalDamage) * 100 : 0;
+      const damageContribution = Number(row.damageContribution) || 0;
 
       let contributionClass = "";
       if (damageContribution < 3) {
@@ -225,11 +203,10 @@ const createMeterUI = ({
 
   const updateFromRows = (rows) => {
     const arr = Array.isArray(rows) ? rows.slice() : [];
-    const sortDirection = typeof getSortDirection === "function" ? getSortDirection() : "desc";
     arr.sort((a, b) => {
       const aMetric = Number(resolveMetric(a)?.value) || 0;
       const bMetric = Number(resolveMetric(b)?.value) || 0;
-      return sortDirection === "asc" ? aMetric - bMetric : bMetric - aMetric;
+      return bMetric - aMetric;
     });
     renderRows(getDisplayRows(arr));
   };

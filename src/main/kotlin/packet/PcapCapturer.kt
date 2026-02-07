@@ -1,14 +1,11 @@
 package com.tbread.packet
 
 import com.tbread.config.PcapCapturerConfig
-import com.tbread.logging.CrashLogWriter
 import kotlinx.coroutines.channels.Channel
 import org.pcap4j.core.*
 import org.pcap4j.packet.Packet
 import org.pcap4j.packet.TcpPacket
 import org.slf4j.LoggerFactory
-import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.concurrent.thread
 import kotlin.system.exitProcess
 
@@ -17,14 +14,13 @@ class PcapCapturer(
     private val channel: Channel<CapturedPayload>
 ) {
     companion object {
-        private val logger = LoggerFactory.getLogger(PcapCapturer::class.java)
+        private val logger = LoggerFactory.getLogger(javaClass.enclosingClass)
         private const val FALLBACK_DELAY_MS = 5000L
 
         private fun getAllDevices(): List<PcapNetworkInterface> =
             try { Pcaps.findAllDevs() ?: emptyList() }
             catch (e: PcapNativeException) {
                 logger.error("Failed to initialize pcap", e)
-                CrashLogWriter.log("Failed to initialize pcap", e)
                 exitProcess(2)
             }
     }
@@ -34,21 +30,16 @@ class PcapCapturer(
             it.isLoopBack || it.description?.contains("loopback", ignoreCase = true) == true
         }
 
-    private val activeHandles = ConcurrentHashMap<String, PcapHandle>()
-    private val running = AtomicBoolean(false)
-
     private fun captureOnDevice(nif: PcapNetworkInterface) = thread(name = "pcap-${nif.name}") {
         val deviceLabel = nif.description ?: nif.name
         logger.info("Using capture device: {}", deviceLabel)
 
         try {
-            if (!running.get()) return@thread
             val handle = nif.openLive(
                 config.snapshotSize,
                 PcapNetworkInterface.PromiscuousMode.PROMISCUOUS,
                 config.timeout
             )
-            activeHandles[nif.name] = handle
 
             val filter = "tcp"
             handle.setFilter(filter, BpfProgram.BpfCompileMode.OPTIMIZE)
@@ -69,18 +60,13 @@ class PcapCapturer(
             handle.use { h -> h.loop(-1, listener) }
         } catch (e: Exception) {
             logger.error("Packet capture failed on {}", nif.description ?: nif.name, e)
-            CrashLogWriter.log("Packet capture failed on ${nif.description ?: nif.name}", e)
-        } finally {
-            activeHandles.remove(nif.name)
         }
     }
 
     fun start() {
-        if (!running.compareAndSet(false, true)) return
         val devices = getAllDevices()
         if (devices.isEmpty()) {
             logger.error("No capture devices found")
-            CrashLogWriter.log("No capture devices found")
             exitProcess(1)
         }
 
@@ -116,22 +102,5 @@ class PcapCapturer(
             logger.warn("Loopback capture device not found")
             startDevices(nonLoopbacks, "loopback unavailable")
         }
-    }
-
-    fun stop() {
-        if (!running.compareAndSet(true, false)) return
-        activeHandles.values.forEach { handle ->
-            try {
-                handle.breakLoop()
-            } catch (e: Exception) {
-                logger.debug("Failed to break capture loop", e)
-            }
-            try {
-                handle.close()
-            } catch (e: Exception) {
-                logger.debug("Failed to close capture handle", e)
-            }
-        }
-        activeHandles.clear()
     }
 }

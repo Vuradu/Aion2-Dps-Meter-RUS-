@@ -18,10 +18,6 @@ class ParsedDamagePacket {
         private val id = UUID.randomUUID()
         private var specials:List<SpecialDamage> = arrayListOf()
         private var dot = false
-        private var multiHitCount = 0
-        private var multiHitDamage = 0
-        private var healAmount = 0
-        private var hexPayload: String = ""
 
         fun setSpecials(specials: List<SpecialDamage>) {
                 this.specials = specials
@@ -55,18 +51,6 @@ class ParsedDamagePacket {
         }
         fun setType(typeInfo: StreamProcessor.VarIntOutput){
                 this.type = typeInfo.value
-        }
-        fun setMultiHitCount(count: Int) {
-                this.multiHitCount = count
-        }
-        fun setMultiHitDamage(damage: Int) {
-                this.multiHitDamage = damage
-        }
-        fun setHealAmount(healAmount: Int) {
-                this.healAmount = healAmount
-        }
-        fun setHexPayload(hexPayload: String) {
-                this.hexPayload = hexPayload
         }
 
         fun getActorId(): Int {
@@ -102,18 +86,6 @@ class ParsedDamagePacket {
         fun getType():Int{
                 return this.type
         }
-        fun getMultiHitCount(): Int {
-                return this.multiHitCount
-        }
-        fun getMultiHitDamage(): Int {
-                return this.multiHitDamage
-        }
-        fun getHealAmount(): Int {
-                return this.healAmount
-        }
-        fun getHexPayload(): String {
-                return this.hexPayload
-        }
         fun getTimeStamp(): Long {
                 return this.timestamp
         }
@@ -124,8 +96,8 @@ class ParsedDamagePacket {
                 return this.specials
         }
 
-        fun isCrit(): Boolean {
-                return this.specials.contains(SpecialDamage.CRITICAL)
+        fun isCrit():Boolean{
+                return this.type == 3
         }
         fun isDoT():Boolean{
                 return dot
