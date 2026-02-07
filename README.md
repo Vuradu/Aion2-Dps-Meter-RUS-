@@ -31,19 +31,15 @@ Lovingly forked from [Aion2-Dps-Meter](https://github.com/TK-open-public/Aion2-D
 
 3. If AION 2 is already running, **go to the character selection screen first**.
 
-4. Run `aion2meter-tw.exe` **as Administrator** *(installs to C:\Program Files\aion2meter-tw by default)*
+4. Run **AION2 DPS Meter** from the Desktop shortcut or Start Menu
 
 5. **Allow Windows Firewall** prompt when you first open the app.
    - Preferably, expand the menu and tick Private and Public.
    - This helps ensure data isn't being missed
 
-6. If the DPS meter does not appear:
-   - Teleport using a **Kisk**, **Hideout**, or enter/exit a dungeon
-   - Then repeat steps **3–4**
-
-7. If the meter stops working after previously functioning:
-   - Teleport or enter a dungeon again to refresh packet capture
-   - If it still does not work, restart from step **3**
+6. If the meter stops working after previously functioning:
+   - Click the reload icon
+   - If it still does not work, quit and re-open it.
 
 ---
 
